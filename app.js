@@ -1563,7 +1563,7 @@ function renderEtf(){
       +'<div class="quote-hero"><div><span class="quote-label">场内市价</span><strong>'+(q?q.price.toFixed(3):'--')+'</strong></div><b class="quote-change '+cls(q?q.pct:null)+'">'+fmtPct(q?q.pct:null)+'</b></div>'
       +'<div class="quote-stats"><div><span>今年以来</span><b class="'+cls(r.ytd)+'">'+fmtPct(r.ytd)+'</b></div><div><span>溢价率</span><b class="'+premCls(r.prem)+'">'+fmtPct(r.prem)+'</b></div></div>'
       +'<button type="button" class="etf-chart-toggle" aria-expanded="'+!!etfExpanded[r.e.code]+'" onclick="toggleEtfChart(\''+r.e.code+'\')">'+(etfExpanded[r.e.code]?'收起走势 ↑':'与沪深300对比 ↗')+'</button>'
-      +(etfExpanded[r.e.code]?'<div class="etf-chart-panel">'+etfChartHtml(r.e.code)+'</div>':'')+'</article>';
+      +(etfExpanded[r.e.code]?'<div class="etf-chart-panel">'+etfChartHtml(r.e.code)+'</div><button type="button" class="fund-close-detail" onclick="closeFundDetail(\''+r.e.code+'\',this,\'etf\')">收起走势 ↑</button>':'')+'</article>';
   }).join('');
   document.getElementById('etf').innerHTML=html;
 }
@@ -1622,8 +1622,8 @@ function renderFundCards(list){
       +'<div class="est-line"><span class="est-small '+cls(f.ytd)+'">'+fmtPct(f.ytd)+'</span><span class="est-tag">今年</span></div>';
     var fesc = f.name.replace(/'/g, "\\'");
     var la = f.limitAlert;
-    var html='<div class="card'+(la?' limit-alert':'')+'" data-code="'+f.code+'" draggable="true" ontouchstart="cardTouchStart(event)" ontouchmove="cardTouchMove(event)" ontouchend="cardTouchEnd(event)" ontouchcancel="cardTouchEnd(event)" oncontextmenu="return onCardCtx(event,\''+f.code+'\',\''+fesc+'\')" ondragstart="dragStart(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropCard(event)" ondragend="dragEnd(event)">'
-      +'<div class="f-head" onclick="toggle(\''+f.code+'\')">'
+    var html='<div class="card'+(la?' limit-alert':'')+(expanded[f.code]?' expanded':'')+'" data-code="'+f.code+'" draggable="'+!window.matchMedia('(pointer:coarse)').matches+'" oncontextmenu="return onCardCtx(event,\''+f.code+'\',\''+fesc+'\')" ondragstart="dragStart(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropCard(event)" ondragend="dragEnd(event)">'
+      +'<div class="f-head" role="button" tabindex="0" aria-expanded="'+!!expanded[f.code]+'" onclick="toggle(\''+f.code+'\')" onkeydown="if(event.target===this &amp;&amp; (event.key===\'Enter\' || event.key===\' \')){event.preventDefault();toggle(\''+f.code+'\')}">'
       +'<div class="f-left">'
       +'<span class="poke '+(f.fav?'on':'')+'" title="自选" onclick="event.stopPropagation();toggleFav(\''+f.code+'\')"></span>'
       +'<div style="min-width:0"><div class="f-name">'+f.name+'</div>'
@@ -1663,7 +1663,7 @@ function renderFundCards(list){
         +(r.detail.length>20?'<tr><td colspan="4" class="s-code" style="text-align:left">…共 '+r.detail.length+' 只持仓，以上按占净值前 20 展示</td></tr>':'')
         +'</table></div>':'<div class="holdings-empty">暂无可展示的持仓数据</div>')
         +(r.detail.length>5?'<button type="button" class="holdings-toggle" data-total="'+r.detail.length+'" data-shown="'+Math.min(r.detail.length,20)+'" onclick="toggleHoldings(\''+f.code+'\',this)">'+(holdingsExpanded[f.code]?'收起持仓':r.detail.length>20?'查看前 20 项持仓':'查看全部 '+r.detail.length+' 项持仓')+'</button>':'')
-        +'</section></div>';
+        +'</section></div><button type="button" class="fund-close-detail" onclick="closeFundDetail(\''+f.code+'\',this)">收起基金详情 ↑</button>';
     }
     return html+'</div>';
   }).join('');
@@ -2028,45 +2028,27 @@ function commitReorder(fromCode, toCode){
   document.getElementById('sortBtn').textContent='排序 · 自定义';
   saveFunds(); render();
 }
-/* 触屏：长按卡片后拖动，经过目标即实时换位，松手提交 */
-var tDrag=null;
-function cardTouchStart(e){
-  var card=e.target.closest('.card'); if(!card) return;
-  var y=e.touches[0].clientY;
-  tDrag={ code:card.dataset.code, y0:y, moved:false, timer:setTimeout(function(){ if(tDrag) tDrag.armed=true; },350) };
-}
-function cardTouchMove(e){
-  if(!tDrag||!tDrag.armed) return;
-  e.preventDefault();
-  var y=e.touches[0].clientY, dy=y-tDrag.y0;
-  if(Math.abs(dy)<8) return;
-  tDrag.moved=true;
-  var el=document.elementFromPoint(e.touches[0].clientX, y);
-  var card=el&&el.closest?el.closest('.card'):null;
-  if(!card||card.dataset.code===tDrag.code) return;
-  var list=document.getElementById('list');
-  var cur=list.querySelector('.card[data-code="'+tDrag.code+'"]');
-  var cards=Array.prototype.slice.call(list.querySelectorAll('.card'));
-  if(cards.indexOf(cur)<cards.indexOf(card)) card.after(cur); else card.before(cur);
-}
-function cardTouchEnd(){
-  if(!tDrag) return;
-  clearTimeout(tDrag.timer);
-  if(tDrag.moved){
-    suppressClickUntil=Date.now()+400;
-    var codes=Array.prototype.map.call(document.querySelectorAll('#list .card'), function(c){ return c.dataset.code; });
-    var byCode={}; funds.forEach(function(f){ byCode[f.code]=f; });
-    var reordered=codes.concat(funds.map(function(f){return f.code;}).filter(function(c){ return codes.indexOf(c)<0; }));
-    funds=reordered.map(function(c){ return byCode[c]; });
-    curSort='custom'; lsSet(LS_SORT,'custom'); lsSet(LS_ORDER, reordered);
-    document.getElementById('sortBtn').textContent='排序 · 自定义';
-    saveFunds(); render();
+/* Touch scrolling stays native; drag reordering is available on desktop only. */
+function closeFundDetail(code,button,kind){
+  var container=button.closest('#personalList')?'personalList':kind==='etf'?'etf':'list';
+  var card=button.closest('.card,.etf-item');
+  var wasAbove=card && card.getBoundingClientRect().top<110;
+  if(kind==='etf'){ if(etfExpanded[code]) toggleEtfChart(code); }
+  else if(expanded[code]) toggle(code);
+  if(wasAbove){
+    requestAnimationFrame(function(){
+      var attr=kind==='etf'?'data-etf':'data-code';
+      var target=document.querySelector('#'+container+' ['+attr+'="'+code+'"]');
+      if(target){
+        var offset=container==='personalList'?112:58;
+        window.scrollTo({top:Math.max(0,target.getBoundingClientRect().top+window.scrollY-offset),behavior:'instant'});
+      }
+    });
   }
-  tDrag=null;
 }
-document.addEventListener('touchmove', function(e){ if(tDrag&&tDrag.armed) e.preventDefault(); }, {passive:false});
 
 function onCardCtx(e,code,name){
+  if(window.matchMedia('(pointer:coarse)').matches) return true;
   e.preventDefault();
   delFund(code,name);
   return false;

@@ -203,3 +203,26 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline-color:#66
   #etf .quote-hero strong{font-size:20px}
   #etf .quote-change{margin:0;font-size:13px}
 }
+
+/* Expanded funds have a clear boundary and retain native touch scrolling. */
+#list>.card.expanded,#personalList>.card.expanded,#etf>.etf-item.expanded{
+  border:1px solid #b5a9e8;border-left:3px solid var(--accent);border-radius:8px;
+  background:#f5f3ff;box-shadow:0 4px 16px #4935cf0c;margin:10px 0;padding:16px;
+}
+.card.expanded .f-name::after{content:'点击收起 ↑';display:inline-block;margin-left:8px;font-size:10px;font-weight:400;color:var(--accent)}
+.card.expanded .detail-grid{background:#fff;border:1px solid #e5e0f4;border-radius:6px;padding:12px}
+.card.expanded .f-head{position:sticky;top:0;z-index:15;background:#f5f3ff;padding:10px 0;margin-top:-10px}
+.fund-close-detail{display:block;width:100%;min-height:44px;margin-top:12px;border:1px solid #d6cef0;border-radius:6px;background:#fff;color:var(--accent);font-size:12px;font-weight:600}
+.fund-close-detail:hover{background:#efedff}
+#etf>.expanded .etf-chart-panel{margin:12px 0 0;border:1px solid #e5e0f4;background:#fff;border-radius:6px}
+@media(max-width:700px){
+  html{scroll-behavior:auto}
+  #list>.card.expanded,#personalList>.card.expanded,#etf>.etf-item.expanded{padding:12px;margin:8px 0}
+  .card.expanded .f-head{top:calc(48px + env(safe-area-inset-top));padding:10px 0;min-height:64px}
+  #personalList>.card.expanded .f-head{top:calc(106px + env(safe-area-inset-top))}
+  .card.expanded .detail-grid{padding:10px}
+  .card.expanded .f-x{top:6px;right:-3px}
+  .card.expanded .f-name{padding-right:10px}
+  .card.expanded .f-name::after{display:block;margin:5px 0 0}
+  .card,.etf-item,.hm-chart{touch-action:auto}
+}
