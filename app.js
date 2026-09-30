@@ -1556,15 +1556,14 @@ function renderEtf(){
     var ap=(a.q&&!isNaN(a.q.pct))?a.q.pct:-999, bp=(b.q&&!isNaN(b.q.pct))?b.q.pct:-999;
     return bp-ap;
   });
-  var html='<div class="etf-hd"><span class="e-name">基金 / 走势</span><span class="e-num">市价 / 涨跌</span><span class="e-num">今年以来</span><span class="e-num">溢价率</span></div>';
-  html+=rows.map(function(r){
+  var html=rows.map(function(r){
     var q=r.q;
-    return '<div class="etf-item"><div class="etf-row">'
-      +'<span class="e-name">'+r.e.name+'<i class="s-code">'+r.e.code+' <button type="button" class="etf-chart-toggle" aria-expanded="'+!!etfExpanded[r.e.code]+'" onclick="toggleEtfChart(\''+r.e.code+'\')">'+(etfExpanded[r.e.code]?'收起走势':'走势对比 ↗')+'</button></i></span>'
-      +'<span class="e-num"><b>'+(q?q.price.toFixed(3):'--')+'</b><i class="'+cls(q?q.pct:null)+'">'+fmtPct(q?q.pct:null)+'</i></span>'
-      +'<span class="e-num"><i class="'+cls(r.ytd)+'">'+fmtPct(r.ytd)+'</i></span>'
-      +'<span class="e-num"><i class="'+premCls(r.prem)+'">'+fmtPct(r.prem)+'</i></span>'
-      +'</div>'+(etfExpanded[r.e.code]?'<div class="etf-chart-panel">'+etfChartHtml(r.e.code)+'</div>':'')+'</div>';
+    return '<article class="etf-item quote-card'+(etfExpanded[r.e.code]?' expanded':'')+'" data-etf="'+r.e.code+'">'
+      +'<div class="quote-card-head"><div><span class="quote-kind">跨境 ETF</span><h3>'+r.e.name+'</h3><span class="quote-code">'+r.e.code+'</span></div></div>'
+      +'<div class="quote-hero"><div><span class="quote-label">场内市价</span><strong>'+(q?q.price.toFixed(3):'--')+'</strong></div><b class="quote-change '+cls(q?q.pct:null)+'">'+fmtPct(q?q.pct:null)+'</b></div>'
+      +'<div class="quote-stats"><div><span>今年以来</span><b class="'+cls(r.ytd)+'">'+fmtPct(r.ytd)+'</b></div><div><span>溢价率</span><b class="'+premCls(r.prem)+'">'+fmtPct(r.prem)+'</b></div></div>'
+      +'<button type="button" class="etf-chart-toggle" aria-expanded="'+!!etfExpanded[r.e.code]+'" onclick="toggleEtfChart(\''+r.e.code+'\')">'+(etfExpanded[r.e.code]?'收起走势 ↑':'与沪深300对比 ↗')+'</button>'
+      +(etfExpanded[r.e.code]?'<div class="etf-chart-panel">'+etfChartHtml(r.e.code)+'</div>':'')+'</article>';
   }).join('');
   document.getElementById('etf').innerHTML=html;
 }
@@ -1674,9 +1673,9 @@ function renderFundCards(list){
 function renderMkt(){
   document.getElementById('mkt').innerHTML=MKT_LIST.map(function(i){
     var q=quotes[i.code];
-    return '<div class="mkt-row"><span class="mkt-name">'+i.name+'</span>'
-      +'<span><div class="mkt-price">'+(q?q.price.toFixed(2):'--')+'</div>'
-      +'<div class="mkt-pct '+cls(q?q.pct:null)+'">'+fmtPct(q?q.pct:null)+'</div></span></div>';
+    return '<article class="mkt-row quote-card"><span class="quote-kind">市场指数</span><h3 class="mkt-name">'+i.name+'</h3>'
+      +'<div class="quote-hero"><div><span class="quote-label">最新点位</span><strong class="mkt-price">'+(q?q.price.toFixed(2):'--')+'</strong></div>'
+      +'<b class="quote-change mkt-pct '+cls(q?q.pct:null)+'">'+fmtPct(q?q.pct:null)+'</b></div></article>';
   }).join('');
   renderQuotaList();
   if(typeof renderPersonalHoldings==='function') renderPersonalHoldings();

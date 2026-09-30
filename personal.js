@@ -73,6 +73,7 @@ function renderPersonalHoldings() {
   document.getElementById('personalCount').textContent = total + ' 只' + (term ? ' · 匹配 ' + rows.length + ' 只' : '');
   target.innerHTML = rows.length ? renderFundCards(rows) : '<div class="quota-empty">没有匹配的持仓基金。</div>';
   target.querySelectorAll('.card').forEach(function(card) {
+    card.classList.toggle('expanded',!!expanded[card.dataset.code]);
     card.draggable = false;
     ['ondragstart','ondragover','ondragleave','ondrop','ondragend','ontouchstart','ontouchmove','ontouchend','ontouchcancel','oncontextmenu'].forEach(function(attr) { card.removeAttribute(attr); });
     var f = funds.find(function(item) { return item.code === card.dataset.code; });

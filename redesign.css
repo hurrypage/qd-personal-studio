@@ -83,3 +83,49 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline-color:#66
 .personal-controls select{border:1px solid #dedde5;background:#fff;padding:10px 12px;color:#555;font:inherit;font-size:12px}
 .personal-section .f-name{white-space:normal}
 @media(max-width:600px){.personal-controls{gap:8px}.personal-controls select{max-width:120px;padding:10px 8px}.personal-section{margin-bottom:24px;padding-bottom:20px}.personal-section .section-heading{gap:10px}.personal-section .section-jump{white-space:nowrap;font-size:10px}}
+
+/* Compact instrument cards; expanded analysis uses the full available width. */
+#etf,#mkt,#personalList,#quotaList{display:grid;gap:12px;background:transparent;border:0;overflow:visible}
+#etf,#personalList,#quotaList{grid-template-columns:repeat(3,minmax(0,1fr))}
+#mkt{grid-template-columns:repeat(4,minmax(0,1fr))}
+.quote-card,#personalList>.card,#quotaList>.quota-row{background:#fff;border:1px solid #e3e2e9;border-radius:8px;box-shadow:none;min-width:0;transition:border-color .15s,box-shadow .15s}
+.quote-card:hover,#personalList>.card:hover,#quotaList>.quota-row:hover{background:#fff;border-color:#b8b1dd;box-shadow:0 3px 12px #4935cf08}
+.quote-card{padding:18px;display:block}
+.quote-card h3{font-size:13px;line-height:1.6;margin:6px 0 4px;font-weight:650;color:var(--ink)}
+.quote-card-head{min-height:60px}
+.quote-kind{font-size:10px;color:#8b8899;letter-spacing:.5px}
+.quote-code{font-size:10px;color:var(--soft);font-variant-numeric:tabular-nums}
+.quote-hero{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin:10px 0}
+.quote-label{display:block;color:var(--soft);font-size:10px;margin-bottom:5px}
+.quote-hero strong{display:block;font-size:24px;line-height:1.2;letter-spacing:-.5px;font-variant-numeric:tabular-nums;text-align:left}
+.quote-change{font-size:17px;font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}
+.quote-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid #eeedf2;padding-top:10px;margin-bottom:8px}
+.quote-stats span{display:block;font-size:10px;color:var(--soft);margin-bottom:5px}
+.quote-stats b{font-size:13px;font-weight:600}
+#etf .etf-chart-toggle{margin:0;padding:8px 0 0;border-top:1px solid #eeedf2;width:100%;text-align:left;font-size:11px}
+#etf .etf-item.expanded,#personalList>.card.expanded{grid-column:1/-1}
+#etf .etf-item.expanded .quote-card-head{min-height:0}
+#etf .etf-item.expanded .quote-hero{max-width:360px}
+#etf .etf-item.expanded .quote-stats{max-width:360px}
+#etf .etf-chart-panel{margin:14px -18px -18px;padding:18px;border-radius:0 0 8px 8px}
+#etf .etf-chart-head,#etf .comparison-chart{max-width:none}
+#mkt .mkt-row{min-height:0;border:1px solid #e3e2e9;padding:16px}
+#mkt .mkt-pct{margin:0;text-align:right}
+#mkt .quote-hero{margin:16px 0 0}
+#personalList>.card{padding:16px}
+#personalList .f-head{align-items:flex-start}
+#personalList .f-right{min-width:78px}
+#personalList .est-big{font-size:19px}
+#personalList .f-name{font-size:12px;padding-right:5px}
+#personalList .f-sub{gap:5px}
+#personalList .f-x{right:-5px;top:-10px}
+#personalList .f-estnav{font-size:9px}
+.personal-section>.list-head{display:none}
+#quotaList>.quota-row{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:16px}
+#quotaList .quota-fund strong{white-space:normal;line-height:1.6}
+#quotaList .quota-amount{font-size:17px}
+#quotaList .quota-source{text-align:left;border-top:1px solid #eeedf2;width:100%;padding-top:10px;margin-top:auto}
+@media(max-width:1150px){#etf,#personalList,#quotaList{grid-template-columns:repeat(2,minmax(0,1fr))}#mkt{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){#etf,#personalList,#quotaList{grid-template-columns:1fr}#mkt{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#mkt .mkt-row{padding:13px}#mkt .quote-hero{display:block;margin-top:12px}#mkt .quote-hero strong{font-size:21px}#mkt .quote-change{display:block;text-align:left;font-size:14px;margin-top:8px}.quote-card-head{min-height:0}.quote-card{padding:16px}#etf .etf-chart-panel{margin:14px -16px -16px;padding:14px}#etf .etf-chart-head{align-items:flex-start;flex-direction:column}#personalList .f-estnav{display:block}#quotaList>.quota-row{gap:8px}.quote-hero{margin:12px 0}}
+
+@media(min-width:1350px){#etf{grid-template-columns:repeat(4,minmax(0,1fr))}}
