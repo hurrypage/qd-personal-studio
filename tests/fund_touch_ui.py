@@ -9,7 +9,7 @@ with sync_playwright() as p:
  assert card.get_attribute('draggable')=='false'
  assert card.get_attribute('ontouchstart') is None
  page.wait_for_function("document.querySelector('#list .expanded .cmp-index-line')",timeout=60000)
- card.locator('.hm-chart').first.scroll_into_view_if_needed()
+ page.evaluate("document.querySelector('#list .expanded .hm-chart').scrollIntoView({block:'center',behavior:'instant'})")
  page.screenshot(path='../expanded-fund-mobile.png')
  before=page.evaluate('scrollY')
  page.evaluate("window.touchWasPrevented=false;document.addEventListener('touchmove',e=>{setTimeout(()=>window.touchWasPrevented=e.defaultPrevented,0)})")
