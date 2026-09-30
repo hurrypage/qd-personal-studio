@@ -77,3 +77,9 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline-color:#66
   .hm-perf .hp{padding:8px 2px}
   .hp-l{font-size:9px}.hp-v{font-size:10px;margin-top:3px}
 }
+.personal-section{margin-bottom:36px;padding-bottom:28px;border-bottom:1px solid #dedde5}
+.personal-controls{display:flex;gap:12px;align-items:center;margin:18px 0 8px}
+.personal-controls input{flex:1;min-width:0;border:1px solid #dedde5;background:#fff;padding:10px 12px}
+.personal-controls select{border:1px solid #dedde5;background:#fff;padding:10px 12px;color:#555;font:inherit;font-size:12px}
+.personal-section .f-name{white-space:normal}
+@media(max-width:600px){.personal-controls{gap:8px}.personal-controls select{max-width:120px;padding:10px 8px}.personal-section{margin-bottom:24px;padding-bottom:20px}.personal-section .section-heading{gap:10px}.personal-section .section-jump{white-space:nowrap;font-size:10px}}

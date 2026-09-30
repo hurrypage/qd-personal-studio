@@ -1,6 +1,6 @@
 /* Presentation layer for the redesigned workspace. The market/data engine lives in app.js. */
 (function () {
-  var key = 'qd-studio-filter';
+  var key = 'qd-personal-studio-filter';
   var allowed = ['all', 'buy', 'fav', 'idx', 'act'];
   var activeFilter = localStorage.getItem(key) || 'all';
   if (allowed.indexOf(activeFilter) < 0) activeFilter = 'all';
@@ -34,6 +34,7 @@
     }
   }
   function renderFocus() {
+    var funds = window.funds.filter(function(f){ return !f.personalOnly; });
     var f = funds.filter(function (item) { return item.code === focusCode; })[0] || funds[0];
     if (!f) return;
     focusCode = f.code;
@@ -109,12 +110,13 @@
     var target = document.getElementById('fundCount');
     if (target) target.textContent = count + ' 只';
     renderFocus();
+    if(curView==='mkt' && typeof renderPersonalHoldings==='function') renderPersonalHoldings();
   };
 
   var labels = {
     home: ['基金总览', '每一个数字，都有来处。', '净值、估值与累计表现，放在一张清晰的画布上。'],
     etf: ['跨境 ETF', '观察交易价格与溢价。', '比较跨境 ETF 的场内价格、沪深 300 同期走势与溢价率。'],
-    mkt: ['全球行情', '市场变化，一目了然。', '查看全球主要市场指数与 QDII 基金申购限额。'],
+    mkt: ['全球行情', '市场变化，一目了然。', '查看个人持仓、全球指数与 QDII 基金申购限额。'],
     mine: ['关于与设置', '让每一次观察都有依据。', '了解估值口径、数据来源与使用注意事项。']
   };
   var baseSetView = setView;

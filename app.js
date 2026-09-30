@@ -217,10 +217,10 @@ var ETF_LIST = [
   { code:'520870', name:'易方达伊塔乌巴西IBOVESPAETF(QDII)' }
 ];
 
-var LS_FUNDS='fe2_funds', LS_USCLOSE='fe2_usclose', LS_SORT='fe2_sort', LS_ORDER='fe2_order';
+var LS_FUNDS='qdp3_funds', LS_USCLOSE='qdp3_usclose', LS_SORT='qdp3_sort', LS_ORDER='qdp3_order';
 var funds = [], quotes = {}, usClose = {}, expanded = {}, holdingsExpanded = {};
 var curView='home', curSort='default', timer=null;
-var LS_FILTER='fe2_filter';
+var LS_FILTER='qdp3_filter';
 /* 基金分类：按持仓市场分布（texch: 7=美股 5=港股 1/2=A股），指数基金按跟踪指数归属 */
 var _fltSaved=lsGet(LS_FILTER, null);
 /* 筛选：全部/可申购/自选/指数基金/主动基金 复选并集；旧版单选格式自动迁移 */
@@ -771,6 +771,7 @@ var GLOBAL_Q={
 
 /* ================= 行情代码映射 ================= */
 function quoteCodeOf(h) {
+  if(h.kind==='bond') return null;
   var code = String(h.code || '');
   if (h.texch === '9') return code; /* 指数/代理：完整行情代码直通（usNDX/ukUKX/sh513030…） */
   if (h.texch === '1') return 'sh' + code;
@@ -785,6 +786,7 @@ function quoteCodeOf(h) {
   if (/^[023]/.test(code)) return 'sz' + code;
   if (/^[48]/.test(code)) return 'bj' + code;
   if (/^\d{5}$/.test(code)) return 'hk' + code;
+  if (h.kind==='stock' && /^[A-Z][A-Z.]*$/.test(code)) return 'us' + code;
   return null;
 }
 
@@ -812,7 +814,9 @@ function estimate(fund) {
     return sw>0 ? sc/sw*(fund.coef||0.90) : null;
   }
   var swAll=0; detail.forEach(function(d){ if(d.live!==null&&!isNaN(d.live)) swAll+=d.weight; });
-  return { live:sum('live'), close:sum('close'), coverage:swAll, detail:detail };
+  var proxy = fund.personalProxy && quotes[quoteCodeOf(fund.personalProxy)];
+  var live = fund.personalProxy ? (proxy ? proxy.pct : null) : (fund.personalHolding && /债/.test(fund.ftype||'') ? null : sum('live'));
+  return { live:live, close:fund.personalProxy ? live : sum('close'), coverage:swAll, detail:detail };
 }
 
 /* ================= 数据 ================= */
@@ -1040,6 +1044,7 @@ function scheduleYtdRender(){
     ytdRenderTimer=null;
     saveFunds();
     if(curView==='home') renderHome();
+    else if(curView==='mkt') renderPersonalHoldings();
   },2500);
 }
 function refreshYtd(){
@@ -1048,6 +1053,7 @@ function refreshYtd(){
     var missing=f.ytd===null || f.ytd===undefined || isNaN(f.ytd);
     return missing ? (!f.ytdRetryAt || now>=f.ytdRetryAt) : (!f.ytdTs || now-f.ytdTs>86400000);
   });
+  queue.sort(function(a,b){ return (+!!b.personalHolding)-(+!!a.personalHolding); });
   queue.forEach(function(f){
     fetchYtd(f.code).then(function(r){
       f.ytd=r.ytd; f.ytdDate=r.date; f.ytdTs=Date.now();
@@ -1415,7 +1421,7 @@ function refresh() {
     refreshLimits().then(render);
     refreshYtd();                /* 今年以来涨幅后台补刷，不阻塞行情 */
     var set={};
-    funds.forEach(function(f){ (f.holdings||[]).forEach(function(h){ var qc=quoteCodeOf(h); if(qc) set[qc]=1; }); });
+    funds.forEach(function(f){ if(f.personalProxy) set[quoteCodeOf(f.personalProxy)]=1; (f.holdings||[]).forEach(function(h){ var qc=quoteCodeOf(h); if(qc) set[qc]=1; }); });
     IDX_STRIP.forEach(function(i){ set[i.code]=1; });
     MKT_LIST.forEach(function(i){ set[i.code]=1; });
     if(curView==='etf') ETF_LIST.forEach(function(e){ set[etfQuoteCode(e.code)]=1; });
@@ -1453,6 +1459,7 @@ function fmtPct(v){ if(v===null||v===undefined||isNaN(v)) return '--'; return (v
 function cls(v){ if(v===null||v===undefined||isNaN(v)) return 'flat'; return v>0.0001?'up':(v<-0.0001?'down':'flat'); }
 
 function render(){
+  var funds=window.funds.filter(function(f){return !f.personalOnly;});
   renderIdx();
   if(curView==='home') renderHome();
   else if(curView==='mkt') renderMkt();
@@ -1574,6 +1581,7 @@ function renderIdx(){
 function renderHome(){
   var searchTerm=document.getElementById('kw').value.trim().toLowerCase();
   var list=funds.filter(function(f){
+    if(f.personalOnly) return false;
     if(searchTerm && (f.name+' '+f.code+' '+(f.ftype||'')).toLowerCase().indexOf(searchTerm)<0) return false;
     if(fltAll()) return true;
     var isIdx=f.src==='idx';
@@ -1605,7 +1613,10 @@ function renderHome(){
   document.getElementById('empty').textContent=searchTerm
     ? '当前列表没有匹配的基金。可从搜索结果中添加。'
     : '当前筛选下没有基金。试试切换筛选条件，或使用上方搜索添加基金。';
-  document.getElementById('list').innerHTML=list.map(function(f){
+  document.getElementById('list').innerHTML=renderFundCards(list);
+}
+function renderFundCards(list){
+  return list.map(function(f){
     var r=estimate(f);
     var ahText = f.ah ? ('A股 '+(+f.ah.a).toFixed(1)+'% · 港股 '+(+f.ah.hk).toFixed(1)+'%') : 'A股 -- · 港股 --';
     var right='<div class="est-line"><span class="est-big '+cls(r.live)+'">'+fmtPct(r.live)+'</span><span class="est-tag">实时</span></div>'
@@ -1619,12 +1630,12 @@ function renderHome(){
       +'<div style="min-width:0"><div class="f-name">'+f.name+'</div>'
       +'<div class="f-sub"><span>'+f.code+'</span>'
       +(f.ftype?'<span class="f-type">'+f.ftype+'</span>':'')
-      +limitMetaHtml(f)
+      +(f.personalHolding ? '<span>净值 '+(f.navDate||'待更新')+'</span>' : limitMetaHtml(f))
       +(la?'<span class="limit-badge">限额变动</span>':'')
       +'</div></div>'
       +'</div>'
       +'<div class="f-right">'+right
-      +'<div class="f-estnav">'+ahText+'</div>'
+      +'<div class="f-estnav">'+(f.personalHolding ? (f.personalProxy ? '指数代理估算' : /债/.test(f.ftype) ? '含债券 · 实时估值可能缺失' : '公开持仓估算') : ahText)+'</div>'
       +'</div>'
       +'<span class="f-x" title="删除基金" onclick="event.stopPropagation();delFund(\''+f.code+'\',\''+fesc+'\')">×</span></div>';
     if(expanded[f.code]){
@@ -1634,9 +1645,10 @@ function renderHome(){
           : f.src==='none'
           ? '<span>暂无可用持仓（仅展示净值）</span>'
           : '<span>持仓覆盖率 '+r.coverage.toFixed(1)+'%</span>'
-          +'<span>报告期 '+(f.reportDate||'--')+'（'+(f.src==='full'?'全部持仓':'前十大')+'）</span>'
+          +'<span>报告期 '+(f.reportDate||'--')+'（'+(f.src==='full'?'全部持仓':'公开披露持仓')+'）</span>'
           +(f.ah?'<span>AH口径 '+f.ah.report+'</span>':''))
         +'<span>系数 '+(f.coef||0.90)+'</span>'
+        +(f.personalHolding ? '<a href="https://fundf10.eastmoney.com/ccmx_'+f.code+'.html" target="_blank" rel="noopener noreferrer">查看披露来源 ↗</a>' : '')
         +(la?'<span class="limit-change">限额变动：'+la.text+'</span>':'')
         +'<span class="f-del" onclick="event.stopPropagation();delFund(\''+f.code+'\',\''+fesc+'\')">删除基金</span></div>'
         +'<div class="detail-grid"><div class="detail-analysis">'+histModulesHtml(f)+'</div>'
@@ -1667,6 +1679,7 @@ function renderMkt(){
       +'<div class="mkt-pct '+cls(q?q.pct:null)+'">'+fmtPct(q?q.pct:null)+'</div></span></div>';
   }).join('');
   renderQuotaList();
+  if(typeof renderPersonalHoldings==='function') renderPersonalHoldings();
 }
 
 var quotaShowAll=false;
@@ -1807,7 +1820,7 @@ function loadBenchmark(){
   });
   return benchmarkJob;
 }
-var LS_ESTSNAP='fe2_estsnap';
+var LS_ESTSNAP='qdp3_estsnap';
 /* 每日估值快照：每次刷新把当前实时估值按日期落盘（同日覆盖，留最终估值），供"历史估值对比"使用 */
 function snapshotEstimates(){
   try{
@@ -1973,7 +1986,10 @@ function toggleFav(code){
 }
 function delFund(code,name){
   if(!confirm('删除 '+(name||code)+'（'+code+'）？')) return;
-  funds=funds.filter(function(f){ return f.code!==code; });
+  if(personalCodes && personalCodes.indexOf(code)>=0){
+    var held=funds.find(function(f){return f.code===code;});
+    if(held) held.personalOnly=true;
+  } else funds=funds.filter(function(f){ return f.code!==code; });
   saveFunds(); render();
 }
 /* ---- 长按/拖动排序（拖动自动切换为「自定义」排序） ---- */
@@ -2059,6 +2075,7 @@ function onCardCtx(e,code,name){
 function resetAll(){
   if(!confirm('恢复为默认基金列表？')) return;
   funds=seedFromDefaults();
+  seedPersonalHoldings();
   saveFunds(); refresh();
 }
 
@@ -2142,6 +2159,8 @@ function toast(msg){
 function addFund(i){
   var it=searchResults[i]; if(!it) return;
   var exists=funds.some(function(f){return f.code===it.code;});
+  var existing=funds.find(function(f){return f.code===it.code;});
+  if(existing && existing.personalOnly){ existing.personalOnly=false; saveFunds(); }
   var d = FUNDS_DEFAULT.filter(function(x){ return x.code===it.code; })[0];
   if(!exists){
     try {
@@ -2173,7 +2192,7 @@ function migrateFunds(list){
   list.forEach(function(f){
     /* 非A份额 → 迁移到A份额（同一只基金，持仓一致） */
     var m=A_SHARE_MAP[f.code];
-    if(m){
+    if(m && !f.personalHolding){
       if(!list.some(function(x){ return x!==f && x.code===m.code; })){
         f.code=m.code; f.name=m.name; f.scope=m.scope; f.limit=null; f.limitClasses=null; f.limitTs=0; merged=true;
       }
@@ -2213,7 +2232,7 @@ function migrateFunds(list){
   list.forEach(function(f){ if(!seen[f.code]){ seen[f.code]=1; out.push(f); } else merged=true; });
   return { list:out, merged:merged };
 }
-funds=lsGet(LS_FUNDS, null);
+funds=lsGet(LS_FUNDS, lsGet('fe2_funds', null));
 if(!funds||!funds.length){
   funds=seedFromDefaults();
   saveFunds();
@@ -2222,13 +2241,14 @@ if(!funds||!funds.length){
   funds=mig.list;
   if(mig.merged) saveFunds();
 }
+if(typeof seedPersonalHoldings==='function') seedPersonalHoldings();
 /* 旧版把预置金额写成当日缓存；升级时清除一次，等待接口或公告核实。 */
-if(!lsGet('qd_limit_source_v2', false)){
+if(!lsGet('qd_personal_limit_source_v2', false)){
   funds.forEach(function(f){
     f.limitTs=0; f.limitSource=''; f.limitDate=''; f.limitUrl='';
     (f.limitClasses||[]).forEach(function(c){ c.unknown=true; });
   });
-  saveFunds(); lsSet('qd_limit_source_v2', true);
+  saveFunds(); lsSet('qd_personal_limit_source_v2', true);
 }
 usClose=lsGet(LS_USCLOSE, {});
 curSort=lsGet(LS_SORT,'default');

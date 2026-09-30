@@ -29,6 +29,8 @@
     document.body.appendChild(dashboard);
     document.getElementById('accessScreen').style.display = 'none';
     try {
+      await loadScript('./personal-data.js');
+      await loadScript('./personal.js');
       await loadScript('./app.js');
       await loadScript('./ui.js');
       try { sessionStorage.setItem(key, 'yes'); } catch (_) {}
