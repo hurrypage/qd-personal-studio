@@ -26,8 +26,10 @@
     dashboard.id = 'personalDashboard';
     dashboard.hidden = false;
     dashboard.appendChild(document.getElementById('dashboardTemplate').content.cloneNode(true));
+    dashboard.style.visibility = 'hidden';
+    dashboard.style.position = 'fixed';
+    dashboard.style.inset = '0';
     document.body.appendChild(dashboard);
-    document.getElementById('accessScreen').style.display = 'none';
     try {
       await loadScript('./personal-data.js');
       await loadScript('./personal.js');
@@ -36,6 +38,9 @@
       try { sessionStorage.setItem(key, 'yes'); } catch (_) {}
       document.getElementById('accessScreen').remove();
       dashboard.hidden = false;
+      dashboard.style.visibility = '';
+      dashboard.style.position = '';
+      dashboard.style.inset = '';
     } catch (_) {
       dashboard.hidden = true;
       document.getElementById('accessScreen').style.display = '';
