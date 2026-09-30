@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#fbfbfa">
   <meta name="description" content="QD 基金观察台：查看跨境基金估值、申购额度、ETF 行情和自选基金。">
   <title>个人 QD 观察台</title>
@@ -40,7 +40,7 @@
 
     <main class="main-content">
       <header class="topbar">
-        <div class="breadcrumb">市场工具 <span>/</span> <strong id="sectionCrumb">基金总览</strong></div>
+        <button type="button" class="access-lock mobile-lock" onclick="lockWorkspace()">锁定</button><div class="breadcrumb">市场工具 <span>/</span> <strong id="sectionCrumb">基金总览</strong></div>
         <div class="top-status"><span class="live-indicator"></span><span class="status" id="status">数据加载中</span><span class="status-divider"></span><span class="upd" id="upd">正在更新行情</span></div>
       </header>
 
@@ -58,7 +58,7 @@
             <div class="summary-metric"><span>重点基金净值日期</span><strong id="metricNavDate">--</strong><small>以基金公司披露为准</small></div>
           </section>
 
-          <div class="overview-grid">
+          <button type="button" class="mobile-focus-toggle" aria-expanded="false" aria-controls="mobileFocusArea" onclick="toggleMobileFocus()">重点基金与沪深300对比 <span>展开 ↓</span></button><div class="overview-grid" id="mobileFocusArea">
             <section class="focus-panel" aria-label="重点基金走势">
               <div class="focus-head"><div><span class="focus-eyebrow">01 / 重点观察</span><h2 id="focusName">正在加载基金…</h2><p id="focusMeta">历史净值加载中</p></div><div class="focus-performance"><span>今年以来</span><strong id="focusYtd">--</strong></div></div>
               <div id="focusChart" class="focus-chart"><div class="hm-empty">正在加载基金与沪深300的同期走势…</div></div>
@@ -91,7 +91,7 @@
         </div>
 
         <div id="view-etf" style="display:none"><div class="section-heading"><div><span class="section-kicker">场内交易</span><h2>跨境 ETF</h2></div><span class="section-aside">按场内涨跌幅排序 · 卡片展开走势对比</span></div><div class="data-panel" id="etf"></div><p class="table-note">走势图比较 ETF 场内收盘价与沪深 300 的同期收益率。溢价率 =（场内市价 − 基金净值）/ 净值；净值以最近披露日为准。</p></div>
-        <div id="view-mkt" style="display:none"><section class="personal-section" id="personalSection" aria-label="我的个人持仓"><div class="section-heading"><div><span class="section-kicker">个人观察</span><h2>我的个人持仓 <span class="heading-count" id="personalCount"></span></h2></div><button type="button" class="section-jump" onclick="resetPersonalHoldings()">恢复截图清单</button></div><p class="quota-note">按你的截图建立基金清单，保留 A / C 份额。右侧显示实时估算与基金今年至今收益；展开查看公开持仓、历史净值与沪深 300 同期对比。未提供金额和份额，不计算个人盈亏。</p><div class="personal-controls"><label class="sr-only" for="personalSearch">搜索个人持仓</label><input id="personalSearch" type="search" class="search-input" placeholder="搜索持仓名称或代码" oninput="renderPersonalHoldings()"><label class="sr-only" for="personalSort">持仓排序</label><select id="personalSort" onchange="sortPersonalHoldings(this.value)"><option value="default">截图顺序</option><option value="live">实时估算 ↓</option><option value="ytd">今年至今 ↓</option></select></div><div class="list-head"><span>我的持仓基金</span><span>实时估算 / 今年至今</span></div><div id="personalList" class="fund-list"></div><p class="table-note">实时值是根据公开持仓或跟踪指数计算的估算，不等于实际净值；债券行情或披露持仓不足时显示缺失。持仓报告期与净值日期在基金卡片中标注。</p></section><div class="section-heading"><div><span class="section-kicker">全球视野</span><h2>市场行情</h2></div><button type="button" class="section-jump" onclick="document.getElementById('quotaSection').scrollIntoView({behavior:'smooth',block:'start'})">查看 QDII 限额 ↓</button></div><div class="data-panel market-panel" id="mkt"></div><section class="quota-section" id="quotaSection" aria-label="QDII 申购限额"><div class="section-heading"><div><span class="section-kicker">申购额度</span><h2>QDII 限购速览 <span class="heading-count" id="quotaCount"></span></h2></div><span class="section-aside">单日申购上限 · 按金额从低到高</span></div><p class="quota-note">显示最近核对的申购上限，不代表实时剩余额度；待核验的公告金额不计入。</p><div id="quotaList" class="quota-list"></div><button type="button" id="quotaMore" class="quota-more" onclick="toggleQuotaMore()" style="display:none"></button></section></div>
+        <div id="view-mkt" data-mobile-panel="personal" style="display:none"><nav class="mobile-market-switch" aria-label="全球行情栏目"><button type="button" aria-pressed="true" aria-controls="personalSection" data-panel="personal" onclick="selectMobileMarket('personal')">我的持仓</button><button type="button" aria-pressed="false" aria-controls="marketIndexSection" data-panel="indices" onclick="selectMobileMarket('indices')">全球指数</button><button type="button" aria-pressed="false" aria-controls="quotaSection" data-panel="quota" onclick="selectMobileMarket('quota')">申购限额</button></nav><section class="personal-section" id="personalSection" aria-label="我的个人持仓"><div class="section-heading"><div><span class="section-kicker">个人观察</span><h2>我的个人持仓 <span class="heading-count" id="personalCount"></span></h2></div><button type="button" class="section-jump" onclick="resetPersonalHoldings()">恢复截图清单</button></div><details class="personal-data-note"><summary>持仓口径与数据说明</summary><p class="quota-note">按你的截图建立基金清单，保留 A / C 份额。右侧显示实时估算与基金今年至今收益；展开查看公开持仓、历史净值与沪深 300 同期对比。未提供金额和份额，不计算个人盈亏。</p></details><div class="personal-controls"><label class="sr-only" for="personalSearch">搜索个人持仓</label><input id="personalSearch" type="search" class="search-input" placeholder="搜索持仓名称或代码" oninput="renderPersonalHoldings()"><label class="sr-only" for="personalSort">持仓排序</label><select id="personalSort" onchange="sortPersonalHoldings(this.value)"><option value="default">截图顺序</option><option value="live">实时估算 ↓</option><option value="ytd">今年至今 ↓</option></select></div><div class="list-head"><span>我的持仓基金</span><span>实时估算 / 今年至今</span></div><div id="personalList" class="fund-list"></div><p class="table-note">实时值是根据公开持仓或跟踪指数计算的估算，不等于实际净值；债券行情或披露持仓不足时显示缺失。持仓报告期与净值日期在基金卡片中标注。</p></section><section id="marketIndexSection"><div class="section-heading"><div><span class="section-kicker">全球视野</span><h2>市场行情</h2></div><button type="button" class="section-jump" onclick="selectMobileMarket('quota');document.getElementById('quotaSection').scrollIntoView({behavior:'smooth',block:'start'})">查看 QDII 限额 ↓</button></div><div class="data-panel market-panel" id="mkt"></div></section><section class="quota-section" id="quotaSection" aria-label="QDII 申购限额"><div class="section-heading"><div><span class="section-kicker">申购额度</span><h2>QDII 限购速览 <span class="heading-count" id="quotaCount"></span></h2></div><span class="section-aside">单日申购上限 · 按金额从低到高</span></div><p class="quota-note">显示最近核对的申购上限，不代表实时剩余额度；待核验的公告金额不计入。</p><div id="quotaList" class="quota-list"></div><button type="button" id="quotaMore" class="quota-more" onclick="toggleQuotaMore()" style="display:none"></button></section></div>
         <div id="view-mine" style="display:none"><div class="section-heading"><div><span class="section-kicker">使用说明</span><h2>关于观察台</h2></div></div><div class="data-panel mine-card" id="mineCard"></div></div>
 
         <footer class="footer">公开市场数据可能延迟。所有估值仅供参考，不构成投资建议。</footer>

@@ -148,3 +148,20 @@
   syncFilterUi();
   renderHome();
 })();
+
+function selectMobileMarket(panel) {
+  var view = document.getElementById('view-mkt');
+  if(['personal','indices','quota'].indexOf(panel)<0) return;
+  view.dataset.mobilePanel = panel;
+  view.querySelectorAll('.mobile-market-switch button').forEach(function(button){
+    button.setAttribute('aria-pressed',String(button.dataset.panel===panel));
+  });
+}
+function toggleMobileFocus() {
+  var button=document.querySelector('.mobile-focus-toggle');
+  var open=button.getAttribute('aria-expanded')!=='true';
+  button.setAttribute('aria-expanded',String(open));
+  document.getElementById('view-home').classList.toggle('mobile-focus-open',open);
+  button.querySelector('span').textContent=open?'收起 ↑':'展开 ↓';
+  renderHome();
+}
