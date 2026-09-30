@@ -5,11 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fbfbfa">
   <meta name="description" content="QD 基金观察台：查看跨境基金估值、申购额度、ETF 行情和自选基金。">
-  <title>QD 观察台 · 基金估值与额度</title>
+  <title>个人 QD 观察台</title>
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./redesign.css">
+  <link rel="stylesheet" href="./access.css">
 </head>
 <body>
+  <section class="access-screen" id="accessScreen" aria-labelledby="accessTitle">
+    <div class="access-card">
+      <div class="access-brand">QD <span>个人观察台</span></div>
+      <p class="access-kicker">PERSONAL WORKSPACE</p>
+      <h1 id="accessTitle">你的市场观察空间</h1>
+      <p class="access-intro">基金表现、跨境行情与申购额度，集中查看。</p>
+      <form id="accessForm">
+        <label for="accessPassword">访问密码</label>
+        <div class="access-input"><input id="accessPassword" type="password" inputmode="numeric" autocomplete="current-password" required placeholder="请输入密码" aria-describedby="accessMessage"><button type="button" id="togglePassword" aria-label="显示密码">显示</button></div>
+        <p id="accessMessage" class="access-message" role="status" aria-live="polite"></p>
+        <button class="access-submit" type="submit">进入观察台 <span>→</span></button>
+      </form>
+      <p class="access-note">个人使用 · 简单访问密码</p>
+    </div>
+  </section>
+  <template id="dashboardTemplate">
   <div class="app-shell">
     <nav class="side-nav" aria-label="主导航">
       <div class="brand"><span class="brand-mark">QD</span><span class="brand-name">QD 观察台<small>跨境基金工作台</small></span></div>
@@ -18,7 +35,7 @@
       <button class="ni" data-v="etf" title="跨境 ETF" onclick="setView('etf')"><span class="nav-symbol">▤</span><span>跨境ETF</span></button>
       <button class="ni" data-v="mkt" title="全球行情" onclick="setView('mkt')"><span class="nav-symbol">◎</span><span>全球行情</span></button>
       <button class="ni" data-v="mine" title="关于与设置" onclick="setView('mine')"><span class="nav-symbol">⚙</span><span>设置</span></button>
-      <div class="side-note"><span class="side-note-label">数据说明</span><p>估值由公开持仓与市场行情计算，仅供观察，不构成投资建议。</p></div>
+      <button type="button" class="access-lock" onclick="lockWorkspace()">锁定页面 ↗</button><div class="side-note"><span class="side-note-label">数据说明</span><p>估值由公开持仓与市场行情计算，仅供观察，不构成投资建议。</p></div>
     </nav>
 
     <main class="main-content">
@@ -81,7 +98,7 @@
       </div>
     </main>
   </div>
-  <script src="./app.js"></script>
-  <script src="./ui.js"></script>
+  </template>
+  <script src="./access.js"></script>
 </body>
 </html>
