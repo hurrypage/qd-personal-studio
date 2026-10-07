@@ -226,3 +226,12 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline-color:#66
   .card.expanded .f-name::after{display:block;margin:5px 0 0}
   .card,.etf-item,.hm-chart{touch-action:auto}
 }
+
+/* Source evidence and share-class comparison */
+.actual-date{font-size:10px;color:var(--muted,#75818d);margin:2px 0 5px}.actual-nav .est-tag{font-size:10px}
+.fund-evidence,#quotaHistory{margin:16px 0;padding:18px;border:1px solid #e2e8ed;border-radius:14px;background:#f8fafb;font-size:12px;color:#526170}
+.fund-evidence h3,#quotaHistory h3{margin:0 0 10px;color:#223344;font-size:14px}.fund-evidence p,#quotaHistory p{line-height:1.7;overflow-wrap:anywhere;margin:8px 0}
+.fund-evidence a,#quotaHistory a{color:#23716a;text-decoration:underline}.share-scroll{overflow-x:auto}.share-scroll table{min-width:560px;width:100%}.share-scroll td,.share-scroll th{text-align:left!important;padding:10px 8px!important}
+#quotaHistory article{padding:14px 0;border-top:1px solid #e2e8ed}#quotaHistory article a{display:inline-block;margin:6px 12px}#quotaHistory summary{cursor:pointer}
+@media(max-width:600px){.fund-evidence,#quotaHistory{padding:12px;margin:12px 0}.actual-nav .est-small{font-size:13px}.actual-date{font-size:9px}}
+@media(max-width:600px){.filter-row{max-width:100%;margin-left:0;margin-right:0;padding-left:0;padding-right:0;overflow-x:auto}.fund-evidence{min-width:0}.share-scroll{max-width:100%}}

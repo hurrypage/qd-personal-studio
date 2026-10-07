@@ -33,6 +33,7 @@
     try {
       await loadScript('./personal-data.js');
       await loadScript('./personal.js');
+      await loadScript('./data-tools.js');
       await loadScript('./app.js');
       await loadScript('./ui.js');
       try { sessionStorage.setItem(key, 'yes'); } catch (_) {}

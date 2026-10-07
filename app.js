@@ -1010,10 +1010,10 @@ function pumpFundSeries(){
       if(cum.length<2 || unit.length<2) throw new Error('暂无有效历史净值');
       var nav=cum.map(function(x){
         var u=unitByTime[x.t] || null;
-        return {d:fundDate(x.t),nav:u?+u.y:NaN,cum:x.v,pct:u?+u.equityReturn:NaN};
+        return {d:fundDate(x.t),nav:u?+u.y:NaN,cum:x.v,pct:u && u.equityReturn!==null && u.equityReturn!==undefined && u.equityReturn!==''?+u.equityReturn:NaN};
       });
       var value={period:fundPeriods(cum),nav:nav,date:nav[nav.length-1].d,ts:Date.now()};
-      fundSeriesCache[job.code]=value;
+      fundSeriesCache[job.code]=value; updateActualNav(job.code,value);
       finish(null,value);
     } catch(e){ finish(e); }
   };
@@ -1021,7 +1021,7 @@ function pumpFundSeries(){
   script.src='https://fund.eastmoney.com/pingzhongdata/'+encodeURIComponent(job.code)+'.js?v='+new Date().toISOString().slice(0,10).replace(/-/g,'');
   document.head.appendChild(script);
 }
-function loadFundSeries(code, priority){
+function loadFundSeriesPrimary(code, priority){
   var cached=fundSeriesCache[code];
   if(cached && Date.now()-cached.ts<3600000) return Promise.resolve(cached);
   if(fundSeriesJobs[code]) return fundSeriesJobs[code];
@@ -1032,6 +1032,9 @@ function loadFundSeries(code, priority){
   });
   fundSeriesJobs[code]=promise;
   return promise;
+}
+function loadFundSeries(code, priority){
+  return loadFundSeriesPrimary(code,priority).catch(function(){return loadBackupHistory(code);});
 }
 function fetchYtd(fcode){
   return loadFundSeries(fcode).then(function(r){ return {ytd:r.period.JN,date:r.date}; });
@@ -1068,14 +1071,16 @@ function fetchLimit(fcode) {
     .then(function(d){
       if(!d || d.Success===false || !d.Datas) throw new Error('申购接口暂无有效数据');
       var b = d.Datas;
-      var state = b.SGZT || '', max = parseFloat(b.MAXSG) || 0;
+      var state = b.SGZT || '', rawMax = Number(b.MAXSG), max = isFinite(rawMax) ? rawMax : 0;
+      var unlimited = rawMax >= 1e8;
+      var unknown = !unlimited && !(max>0) && !/暂停|封闭|认购/.test(state);
       var buy = b.BUY !== false; /* false=渠道未售（直销/汇款专供），限额以份额专属公告为准 */
       if (max >= 1e8) max = 0; /* MAXSG 的 1e11 为"不限"哨兵值 */
       if (state === '开放申购') state = '';
       var limit = null;
       if (state.indexOf('暂停') > -1) limit = { state:'暂停申购', max:0, text:'暂停申购', stop:true };
       else if (max > 0) limit = { state:state||'限大额', max:max, text:'限购'+fmtAmt(max), stop:false };
-      return { limit:limit, state:state, max:max, buy:buy };
+      return { limit:limit, state:state, max:max, buy:buy, unlimited:unlimited, unknown:unknown };
     });
 }
 /* 同基金全部人民币份额 -> 逐份额限额 */
@@ -1106,7 +1111,7 @@ function fetchClassLimits(fcode) {
             return c;
           }
           var l=r?r.limit:null;
-          c.state=l?l.state:''; c.max=l?l.max:0;
+          c.state=r?r.state:''; c.max=l?l.max:0; c.unlimited=!!(r&&r.unlimited); c.unknown=!r || !!r.unknown;
           return c;
         }).catch(function(){ c.unknown=true; return c; });
       }));
@@ -1114,7 +1119,7 @@ function fetchClassLimits(fcode) {
 }
 /* 单份额描述：'A限购100元' / 'A暂停申购' / 'A不限购' */
 function classLimitText(c) {
-  if (c.unknown) return c.cls+'限额待核验';
+  if (c.unknown || (!(c.max>0) && !c.unlimited && !/暂停|封闭|认购/.test(c.state||''))) return c.cls+'限额待核验';
   var s = c.directOnly ? '(直销)' : '';
   if ((c.state||'').indexOf('暂停') > -1) return c.cls+'暂停申购';
   if ((c.state||'').indexOf('封闭期') > -1) return c.cls+'封闭期';
@@ -1163,7 +1168,7 @@ function limitBody(f) {
   if (f.scope === '各份额合并计算') {
     var groups = {}, order = [];
     cs.forEach(function(c){
-      var t = c.unknown ? '限额待核验' : ((c.state||'').indexOf('暂停') > -1 ? '暂停申购' : (c.max > 0 ? '限购'+fmtAmt(c.max) : '不限购'));
+      var t = (c.unknown || (!(c.max>0) && !c.unlimited && !/暂停|封闭|认购/.test(c.state||''))) ? '限额待核验' : ((c.state||'').indexOf('暂停') > -1 ? '暂停申购' : (c.max > 0 ? '限购'+fmtAmt(c.max) : '不限购'));
       var key = t + (c.directOnly ? '|直销' : ''); /* 直销专供份额独立成组 */
       if (!groups[key]) { groups[key]=[]; order.push(key); }
       groups[key].push(c.cls);
@@ -1308,6 +1313,7 @@ function refreshLimits() {
           var hasApi=classes.some(function(c){ return !c.unknown; });
           f.limitTs = hasApi ? Date.now() : 0;
           f.limitRetryAt = hasApi ? 0 : Date.now()+21600000;
+          f.limitFetchError=!hasApi;
           f.limitSource = hasApi ? 'api' : '';
           f.limitDate = hasApi ? new Date().toLocaleDateString('sv-SE',{timeZone:'Asia/Shanghai'}) : '';
           applyLimitNotice(f);
@@ -1317,6 +1323,7 @@ function refreshLimits() {
             changedLimits.push(f);
           }
           f._limitSig = newSig;
+          quotaEvidenceReady=true;
           saveFunds();
           if (curView==='home') renderHome();
           else if (curView==='mkt') renderMkt();
@@ -1335,7 +1342,7 @@ function refreshLimits() {
         }
         var d = FUNDS_DEFAULT.filter(function(x){ return x.code===f.code; })[0];
         if (d && d.scope && !f.scope) f.scope = d.scope;
-      }).catch(function(){ f.limitRetryAt=Date.now()+21600000; });
+      }).catch(function(){ f.limitFetchError=true; f.limitRetryAt=Date.now()+21600000; });
     }).then(function(){ return new Promise(function(r){ setTimeout(r, 400); }); });
   });
   return chain.then(function(){
@@ -1354,7 +1361,7 @@ function applyLimitNotice(f){
   var covered=verified.classes||[];
   (f.limitClasses||[]).forEach(function(c){
     if (covered.indexOf(c.code)<0) return;
-    c.max=verified.amount; c.state='限大额'; c.unknown=false; c.source='notice';
+    c.max=verified.amount; c.state='限大额'; c.unknown=false; c.unlimited=false; c.source='notice';
   });
   f.limitSource='notice'; f.limitUrl=verified.url||''; f.limitDate=verified.date||'';
   if (verified.scope) { f.scope=verified.scope; f.scopeDate=verified.date||''; f.scopeSrc='notice'; }
@@ -1368,12 +1375,13 @@ function loadLimitNotices(){
     if(!d || !d.limits || !d.unverified) throw new Error('公告快照格式错误');
     limitNotices=d;
     funds.forEach(applyLimitNotice);
+    quotaEvidenceReady=true;
     saveFunds(); render();
   }).catch(function(){ /* 快照暂不可用时，未核实的预置数据仍标为待核验。 */ });
 }
 
 /* ================= 主流程 ================= */
-function saveFunds(){ lsSet(LS_FUNDS, funds); }
+function saveFunds(){ lsSet(LS_FUNDS, funds); recordQuotaHistory(funds); }
 
 function refresh() {
   document.getElementById('status').textContent = statusText();
@@ -1619,7 +1627,7 @@ function renderFundCards(list){
     var r=estimate(f);
     var ahText = f.ah ? ('A股 '+(+f.ah.a).toFixed(1)+'% · 港股 '+(+f.ah.hk).toFixed(1)+'%') : 'A股 -- · 港股 --';
     var right='<div class="est-line"><span class="est-big '+cls(r.live)+'">'+fmtPct(r.live)+'</span><span class="est-tag">实时</span></div>'
-      +'<div class="est-line"><span class="est-small '+cls(f.ytd)+'">'+fmtPct(f.ytd)+'</span><span class="est-tag">今年</span></div>';
+      +actualNavHtml(f)+'<div class="est-line"><span class="est-small '+cls(f.ytd)+'">'+fmtPct(f.ytd)+'</span><span class="est-tag">今年</span></div>';
     var fesc = f.name.replace(/'/g, "\\'");
     var la = f.limitAlert;
     var html='<div class="card'+(la?' limit-alert':'')+(expanded[f.code]?' expanded':'')+'" data-code="'+f.code+'" draggable="'+!window.matchMedia('(pointer:coarse)').matches+'" oncontextmenu="return onCardCtx(event,\''+f.code+'\',\''+fesc+'\')" ondragstart="dragStart(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropCard(event)" ondragend="dragEnd(event)">'
@@ -1638,7 +1646,7 @@ function renderFundCards(list){
       +'</div>'
       +'<span class="f-x" title="删除基金" onclick="event.stopPropagation();delFund(\''+f.code+'\',\''+fesc+'\')">×</span></div>';
     if(expanded[f.code]){
-      html+='<div class="meta-line"><span>净值 '+(f.nav||'--')+'（'+(f.navDate||'--')+'）</span>'
+      html+=fundEvidenceHtml(f)+'<div class="meta-line"><span>净值 '+(f.nav||'--')+'（'+(f.navDate||'--')+'）</span>'
         +(f.src==='idx'
           ? '<span>估算方式 '+(f.idxName||'跟踪指数')+'</span>'
           : f.src==='none'
@@ -1700,7 +1708,7 @@ function renderQuotaList(){
   var count=document.getElementById('quotaCount'), list=document.getElementById('quotaList'), more=document.getElementById('quotaMore');
   if(!count||!list||!more) return;
   count.textContent=rows.length+' 只已核实'+(pending.length?' · '+pending.length+' 只待核验':'');
-  if(!rows.length&&!pending.length){ list.innerHTML='<div class="quota-empty">正在核对基金申购限额，暂无可确认的金额。</div>'; more.style.display='none'; return; }
+  if(!rows.length&&!pending.length){ list.innerHTML='<div class="quota-empty">正在核对基金申购限额，暂无可确认的金额。</div>'; more.style.display='none'; renderQuotaHistory(); return; }
   var combined=rows.map(function(r){return {kind:'verified',row:r};}).concat(pending.map(function(f){return {kind:'pending',fund:f};}));
   list.innerHTML=(quotaShowAll?combined:combined.slice(0,14)).map(function(item){
     if(item.kind==='pending'){
@@ -1719,6 +1727,7 @@ function renderQuotaList(){
   }).join('');
   more.style.display=combined.length>14?'block':'none';
   more.textContent=quotaShowAll?'收起列表':'查看全部 '+combined.length+' 只基金';
+  renderQuotaHistory();
 }
 
 function renderMine(){
@@ -1972,6 +1981,7 @@ function toggle(code){
   expanded[code]=!expanded[code];
   /* 点击卡片消除限额变动高亮 */
   var tf=funds.filter(function(x){ return x.code===code; })[0];
+  if(expanded[code] && tf) ensureShareDetails(tf);
   if(tf && tf.limitAlert){ delete tf.limitAlert; saveFunds(); }
   if(expanded[code] && !(fundHist[code] && !fundHist[code].failed && Date.now()-fundHist[code].ts<3600000)){
     ensureHist(code).then(function(){ renderHome(); }).catch(function(){ fundHist[code]={ts:0,failed:true}; renderHome(); });
