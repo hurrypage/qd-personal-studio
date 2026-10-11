@@ -67,3 +67,24 @@ test('malformed suggestions, cumulative profit and scenarios are not rendered as
   const profit=sample(); profit.positions[0].cumulative_profit_cents='unknown'; assert.throws(()=>validate(profit));
   const scenario=sample(); scenario.scenario={weight:NaN,assumed_decline_pct:30,scenario_loss_cents:10}; assert.throws(()=>validate(scenario));
 });
+
+function evaluation() {
+  return {version:1,scope:'full_assets',batch_id:'test',status:'partial',
+    performance:{displayed_profit_cents:-1000,net_profit_cents:null,total_return:null,max_drawdown:null},
+    risk:{status:'insufficient'},risk_change:{note:'insufficient'},
+    budget_guard:{automatic_trading:false},engines:{},backtest_gate:{executed:false},data_requests:['Balances needed']};
+}
+test('new evaluation retains unknown profit and rejects mixed batches or nonfinite risk',()=>{
+  const data=sample(); data.batch_id='test'; data.evaluation=evaluation(); assert.equal(validate(data).evaluation.performance.net_profit_cents,null);
+  data.evaluation.batch_id='legacy'; assert.throws(()=>validate(data));
+  data.evaluation.batch_id='test'; data.evaluation.risk.interval_volatility=Infinity; assert.throws(()=>validate(data));
+});
+test('account budget alert can be displayed without a fake instrument identity',()=>{
+  const data=sample(); data.priority_actions=[{code:'ACCOUNT',market:'PORTFOLIO',name:'Budget',direction:'Review',reason:'Limit breached'}];
+  assert.equal(validate(data).priority_actions.length,1);
+  data.priority_actions[0].code='anything'; assert.throws(()=>validate(data));
+});
+test('automatic trading payload is not accepted by private evaluation viewer',()=>{
+  const data=sample(); data.evaluation=evaluation(); data.evaluation.budget_guard.automatic_trading=true;
+  assert.throws(()=>validate(data));
+});

@@ -5,12 +5,12 @@
   const text = (id, value) => { $(id).textContent = value == null ? '' : String(value); };
   const plain = value => value == null ? '数据不足' : (value / 100).toLocaleString('zh-CN', {minimumFractionDigits:2, maximumFractionDigits:2});
   const yuan = value => masked ? '••••••' : plain(value);
-  const pct = value => masked ? '•••' : (value * 100).toFixed(2) + '%';
+  const pct = value => masked ? '•••' : value == null ? '数据不足' : (value * 100).toFixed(2) + '%';
   // Free-text explanations can also contain amounts; conceal them in shoulder-surfing mode.
   const narrative = value => masked ? '已隐藏。显示金额后可查看完整说明。' : (value || '数据不足，暂不判断');
   const create = (tag, value, cls) => { const node = document.createElement(tag); if (value != null) node.textContent = String(value); if (cls) node.className = cls; return node; };
   const tone = value => masked || value == null || value === 0 ? '' : value > 0 ? 'positive' : 'negative';
-  const badge = direction => create('span', direction, 'badge' + (/减持|关注/.test(direction) ? ' warning' : /暂不|核算/.test(direction) ? ' neutral' : ''));
+  const badge = direction => create('span', direction, 'badge' + (/减持|关注|降低风险/.test(direction) ? ' warning' : /暂不|核算/.test(direction) ? ' neutral' : ''));
   const accountGroups = () => HoldingsModel.accounts(data);
   function displayTime(value) {
     if (!value) return '未提供';
@@ -23,7 +23,8 @@
   function clear() {
     generation++; data = null; masked = false; resetFields();
     $('report').hidden = true; $('welcome').hidden = false; $('fileInput').value = '';
-    ['positions','priorities','issues','allocation'].forEach(id => $(id).replaceChildren());
+    ['positions','priorities','issues','allocation','riskContributors','dataRequests'].forEach(id => $(id).replaceChildren());
+    ['evaluationStatus','displayedProfit','confirmedProfit','actualReturn','actualDrawdown','modelVolatility','modelCvar','performanceNote','modelRiskChange','riskModelNote','engineStatus','backtestGate'].forEach(id => text(id,''));
     ['meta','runStatus','baseline','budget','loss','remaining','lossStatus','riskChange','scenario','dataNote','plan','count','lossNote','budgetLabel','cashNote','filterSummary','issueCount'].forEach(id => text(id, ''));
     $('budgetMeter').value = 0; $('budgetMeter').hidden = true;
     $('account').replaceChildren(new Option('全部账户', ''));
@@ -69,6 +70,12 @@
       summary.append(name,values);
       const detail = create('div',null,'asset-detail'), decision = create('div'), facts = create('div');
       decision.append(create('h3','监督判断'),badge(direction),create('p',narrative(action ? action.reason : row.exclusion_reason)),create('p','数据依据：' + narrative(action ? action.basis : '仅纳入资产总额，不参与研究。'),'detail-note'),create('p','正式行情日期：' + (action && action.data_date || '数据不足'),'detail-note'));
+      if (action && action.evaluation && action.evaluation.status === 'ok') {
+        const metric = action.evaluation;
+        decision.append(create('p','正式价格 / 净值变动：20期 ' + pct(metric.return20) + '；60期 ' + pct(metric.return60) + '；样本价格回撤 ' + pct(metric.price_drawdown) + '。不是本人的实际收益。','detail-note'));
+        if (metric.risk_share != null) decision.append(create('p','人民币子集波动风险贡献：' + pct(metric.risk_share) + '（不是全账户比例）。','detail-note'));
+      }
+      if (action && action.execution_gate) decision.append(create('p',narrative(action.execution_gate),'detail-note'));
       const dl = create('dl');
       const same = row.code ? data.positions.filter(other => other.code === row.code && other.market === row.market) : [row];
       const combined = same.reduce((sum, other) => sum + other.amount_cents,0);
@@ -87,6 +94,7 @@
     text('baseline',yuan(data.baseline_total_cents)); text('budget',yuan(data.loss.budget_cents)); text('loss',yuan(data.loss.loss_cents)); text('remaining',yuan(data.loss.remaining_cents));
     text('lossStatus',data.loss.loss_cents == null ? '缺当日确认余额，暂不判断' : '确认余额日期 ' + (data.loss.valuation_date || '未提供'));
     text('lossNote',narrative(data.loss.note)); text('riskChange',narrative(data.risk_change)); text('dataNote',narrative(data.data_note)); text('plan',narrative(data.daily_plan));
+    renderEvaluation();
     const used = data.loss.loss_cents == null ? null : Math.max(0,data.loss.loss_cents) / data.loss.budget_cents * 100;
     $('budgetMeter').hidden = masked || used == null; $('budgetMeter').value = Math.min(100, used || 0);
     text('budgetLabel',masked ? '亏损预算已隐藏' : used == null ? '亏损预算使用比例：数据不足' : '亏损预算已使用 ' + used.toFixed(1) + '%' + (used > 100 ? ' · 已超过边界' : ''));
@@ -96,7 +104,7 @@
       const item = create('article',null,'priority'), head = create('div',null,'priority-head'), button = create('button'); button.type = 'button';
       const number = create('span',String(index + 1).padStart(2,'0') + ' '); number.setAttribute('aria-hidden','true');
       button.append(number,create('span',row.code + ' ' + row.name));
-      button.addEventListener('click', () => { resetFields(); focusKey = row.market + ':' + row.code; renderRows(); $('positions').querySelectorAll('details').forEach(node => { node.open = true; }); scrollToList(); });
+      button.addEventListener('click', () => { resetFields(); if (row.market === 'PORTFOLIO') { renderRows(); $('budgetLabel').scrollIntoView({block:'center'}); return; } focusKey = row.market + ':' + row.code; renderRows(); $('positions').querySelectorAll('details').forEach(node => { node.open = true; }); scrollToList(); });
       head.append(button,badge(row.direction)); item.append(head,create('p',narrative(row.reason))); $('priorities').append(item);
     });
     if (!data.priority_actions.length) text('priorities','暂无足够交易证据，暂不操作。');
@@ -104,6 +112,27 @@
     text('issueCount',issues.length ? '· ' + issues.length + ' 项' : ''); $('issues').replaceChildren();
     (issues.length ? issues : [{detail:'本次未发现明显抓取异常；仍需人工确认持仓与交易条件。'}]).forEach(row => $('issues').append(create('li',narrative([row.stage,row.product,row.detail || row.note || row.status].filter(Boolean).join(' · ')))));
     $('report').hidden = false; $('welcome').hidden = true; $('mask').disabled = false; $('clear').disabled = false; renderRows();
+  }
+  function renderEvaluation() {
+    const evaluation = data.evaluation;
+    $('riskContributors').replaceChildren(); $('dataRequests').replaceChildren();
+    ['displayedProfit','confirmedProfit','actualReturn','actualDrawdown','modelVolatility','modelCvar'].forEach(id => text(id,'数据不足'));
+    ['performanceNote','modelRiskChange','riskModelNote','engineStatus','backtestGate'].forEach(id => text(id,''));
+    if (!evaluation || !evaluation.performance) {
+      text('evaluationStatus',evaluation ? narrative(evaluation.note) : '此文件尚未包含新版评价；原持仓与集中度监督仍可查看。'); return;
+    }
+    const p = evaluation.performance, risk = evaluation.risk;
+    text('evaluationStatus','评价生成 ' + displayTime(evaluation.generated_at) + '；持仓权重仍按确认基准，不是实时估值。');
+    text('displayedProfit',yuan(p.displayed_profit_cents)); text('confirmedProfit',yuan(p.net_profit_cents));
+    text('actualReturn',pct(p.total_return)); text('actualDrawdown',pct(p.max_drawdown));
+    text('modelVolatility',pct(risk.interval_volatility)); text('modelCvar',pct(risk.historical_cvar95));
+    text('performanceNote',narrative(p.note + ' ' + p.series_note));
+    text('modelRiskChange',narrative((risk.status === 'ok' ? '模型仅覆盖基准 ' + pct(risk.coverage_weight) + '，不是完整账户风险。' : '风险模型数据不足。') + ' ' + evaluation.risk_change.note));
+    text('riskModelNote',narrative(risk.note + (risk.status === 'ok' ? ' 样本 ' + risk.sample_start + ' 至 ' + risk.sample_end + '，' + risk.sample_intervals + ' 个共同间隔，覆盖基准 ' + pct(risk.coverage_weight) + '。' : '')));
+    (risk.top_contributors || []).forEach(row => $('riskContributors').append(create('li',row.key + ' ' + row.name + '：' + pct(row.risk_share) + '（子集风险贡献）')));
+    text('engineStatus',Object.entries(evaluation.engines).map(([name,engine]) => name + ' ' + (engine.version || '') + ' · ' + ({ready:'可用',fallback_ready:'备用数据源',blocked:'待补数据',unavailable:'不可用'}[engine.status] || engine.status)).join('；'));
+    text('backtestGate',narrative(evaluation.backtest_gate.note));
+    evaluation.data_requests.forEach(row => $('dataRequests').append(create('li',narrative(row))));
   }
   function resetFilters() { resetFields(); renderRows(); }
   $('fileInput').addEventListener('change',async function () {
@@ -128,4 +157,24 @@
   ['account','scope','sort'].forEach(id => $(id).addEventListener('change', () => { focusKey = ''; renderRows(); }));
   $('types').querySelectorAll('button').forEach(button => button.addEventListener('click', () => { type = button.dataset.type; focusKey = ''; renderRows(); }));
   $('resetFilters').addEventListener('click',resetFilters); $('emptyReset').addEventListener('click',resetFilters);
+  $('refreshLocal').addEventListener('click', () => window.location.reload());
+  const embedded = $('embeddedHoldings');
+  const published = !embedded && window.QDPublishedHoldings;
+  if (embedded || published) {
+    document.body.classList.add('embedded-mode'); $('refreshLocal').hidden = false;
+    if (published) {
+      document.querySelector('.privacy-tag').textContent = '已公开 · 非私密数据';
+      document.querySelector('.import-heading .section-index').textContent = 'PUBLIC / PORTFOLIO';
+      text('refreshLocal','刷新页面');
+      document.querySelector('h1').textContent = '我的持仓：公开资产快照';
+    }
+    try {
+      data = HoldingsModel.validate(embedded ? JSON.parse(embedded.textContent) : published);
+      $('account').replaceChildren(new Option('全部账户',''));
+      accountGroups().forEach(group => $('account').append(new Option(group.label,group.account)));
+      render(); text('message',published ? '公开持仓快照已加载，无需导入。持仓与金额已公开；隐藏金额和页面密码不能保护已发布的数据。以标注日期为准。' : '本机内置持仓已读取，无需导入。每日监督完成后刷新更新，不自动上传；公开网站另有已授权快照。隐藏金额仅防旁观。');
+    } catch (error) {
+      clear(); $('message').className = 'error'; text('message',(published ? '公开快照' : '本机持仓') + '加载失败：' + error.message + '。不沿用旧数据。');
+    }
+  }
 })();

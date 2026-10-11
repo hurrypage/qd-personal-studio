@@ -12,8 +12,10 @@
     if (data.actions.length > 1000 || data.priority_actions.length > 1000 ||
       (data.pipeline.errors != null && (!Array.isArray(data.pipeline.errors) || data.pipeline.errors.length > 1000))) throw new Error('建议或异常列表格式不正确');
     [...data.actions, ...data.priority_actions].forEach(function (row) {
+      const portfolio = row && row.code === 'ACCOUNT' && row.market === 'PORTFOLIO';
       if (!row || typeof row.name !== 'string' || typeof row.direction !== 'string' || typeof row.reason !== 'string' ||
-        !/^[0-9]{5,6}$/.test(row.code) || !['FUND','SH','SZ','HK'].includes(row.market)) throw new Error('建议身份或说明字段异常');
+        (!portfolio && (!/^[0-9]{5,6}$/.test(row.code) || !['FUND','SH','SZ','HK'].includes(row.market)))) throw new Error('建议身份或说明字段异常');
+      if (row.evaluation) ['return20','return60','price_drawdown','risk_share'].forEach(key => finite(row.evaluation[key]));
     });
     cents(data.baseline_total_cents); cents(data.cash_cents);
     if (data.baseline_total_cents <= 0 || data.cash_cents < 0) throw new Error('基准金额无效');
@@ -34,7 +36,24 @@
     if (data.scenario && (!Number.isFinite(data.scenario.weight) || data.scenario.weight < 0 || data.scenario.weight > 1 ||
       !Number.isFinite(data.scenario.assumed_decline_pct) || data.scenario.assumed_decline_pct < 0 || data.scenario.assumed_decline_pct > 100)) throw new Error('压力情景比例无效');
     if (data.scenario) cents(data.scenario.scenario_loss_cents);
+    validateEvaluation(data.evaluation, data.batch_id);
     return data;
+  }
+  function finite(value) { if (value != null && !Number.isFinite(value)) throw new Error('评价指标包含无效数值'); }
+  function validateEvaluation(value, batch) {
+    if (value == null) return;
+    if (value.version !== 1 || value.scope !== 'full_assets' || (batch && value.batch_id !== batch)) throw new Error('评价范围或持仓批次不一致');
+    if (value.status === 'error') return;
+    if (!value.performance || !value.risk || !value.risk_change || !value.budget_guard || !value.engines || !value.backtest_gate ||
+      !Array.isArray(value.data_requests) || value.data_requests.length > 100 || value.data_requests.some(row => typeof row !== 'string')) throw new Error('评价字段缺失或格式异常');
+    ['displayed_profit_cents','net_profit_cents'].forEach(key => cents(value.performance[key], true));
+    ['total_return','max_drawdown'].forEach(key => finite(value.performance[key]));
+    ['coverage_weight','interval_volatility','historical_cvar95'].forEach(key => finite(value.risk[key]));
+    if (value.risk.top_contributors != null && !Array.isArray(value.risk.top_contributors)) throw new Error('风险贡献列表格式异常');
+    if (value.risk.status === 'ok' && (!Array.isArray(value.risk.top_contributors) || value.risk.top_contributors.length > 100 ||
+      !Number.isFinite(value.risk.coverage_weight) || value.risk.coverage_weight < 0 || value.risk.coverage_weight > 1)) throw new Error('风险样本或贡献字段异常');
+    (value.risk.top_contributors || []).forEach(row => { if (!row || typeof row.key !== 'string' || typeof row.name !== 'string' || !Number.isFinite(row.risk_share)) throw new Error('风险贡献无效'); });
+    if (value.budget_guard.automatic_trading !== false || value.backtest_gate.executed !== false) throw new Error('只接受不自动交易、未冒充执行回测的评价');
   }
   function category(row) {
     if (row.code === '002611' && row.market === 'FUND') return 'gold';

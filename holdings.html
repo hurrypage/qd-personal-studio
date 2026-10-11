@@ -11,7 +11,7 @@
   <h1 class="sr-only">我的持仓：私有每日监督</h1>
   <header class="import-panel">
     <div class="import-heading"><div><span class="section-index">PRIVATE / PORTFOLIO</span><h2>持仓监督</h2></div><span class="privacy-tag">仅当前页面可见</span></div>
-    <div class="import-controls"><label class="file-button">导入监督文件<input id="fileInput" type="file" accept=".json,application/json" aria-label="导入监督文件"></label><button id="mask" type="button" aria-pressed="false" disabled>隐藏金额</button><button id="clear" type="button" disabled>清除数据</button><details class="import-help"><summary>导入说明</summary><p>选择本地每日监督生成的 <code>my_holdings.json</code>。只在内存中读取，不上传、不自动保存，刷新或关闭后需重新导入。网站访问密码不是资产数据的保护措施，请勿把私有文件放进公开仓库。</p></details></div>
+    <div class="import-controls"><label class="file-button">导入监督文件<input id="fileInput" type="file" accept=".json,application/json" aria-label="导入监督文件"></label><button id="mask" type="button" aria-pressed="false" disabled>隐藏金额</button><button id="refreshLocal" type="button" hidden>刷新本机数据</button><button id="clear" type="button" disabled>清除数据</button><details class="import-help"><summary>导入说明</summary><p>选择本地每日监督生成的 <code>my_holdings.json</code>。只在内存中读取，不上传、不自动保存，刷新或关闭后需重新导入。网站访问密码不是资产数据的保护措施，请勿把私有文件放进公开仓库。</p></details></div>
     <p id="message" role="status" aria-live="polite">尚未导入 · 选择本地文件，查看账户分布、风险预算及逐项监督依据。</p>
   </header>
   <section id="welcome" class="welcome" aria-label="导入前说明">
@@ -29,6 +29,21 @@
       <section class="risk-panel" aria-labelledby="riskTitle"><div class="section-title"><h2 id="riskTitle"><span class="section-index">01 /</span> 今日优先复查</h2><span class="muted">最多3项 · 每天1小时</span></div><p id="riskChange"></p><div class="budget-line"><span id="budgetLabel"></span><progress id="budgetMeter" max="100" value="0" aria-label="亏损预算使用比例"></progress></div><div id="priorities"></div><details class="support-note"><summary>压力情景与数据口径</summary><p id="scenario"></p><p id="dataNote"></p><p id="lossNote"></p></details><details class="support-note"><summary>我的每日复查安排</summary><p id="plan"></p></details></section>
       <section class="allocation-panel" aria-labelledby="allocationTitle"><div class="section-title"><h2 id="allocationTitle">账户分布</h2><span class="muted">占全部基准资产</span></div><div id="allocation"></div><p class="muted">点击账户可筛选下方清单。上方风险预算始终为完整组合口径。</p><p id="cashNote" class="muted"></p></section>
     </div>
+    <section id="evaluationPanel" class="evaluation-panel" aria-labelledby="evaluationTitle">
+      <div class="section-title"><h2 id="evaluationTitle">收益与风险评价</h2><span class="muted">本地计算 · 不自动交易</span></div>
+      <p id="evaluationStatus" class="muted"></p>
+      <div class="evaluation-metrics">
+        <article><span>截图持仓盈亏 · 元</span><strong id="displayedProfit"></strong><small>不是完整历史投资利润</small></article>
+        <article><span>基准以来确认净利润 · 元</span><strong id="confirmedProfit"></strong><small>当日余额核验后计算</small></article>
+        <article><span>真实日终收益率</span><strong id="actualReturn"></strong><small>需连续确认余额与资金流</small></article>
+        <article><span>真实日终样本最大回撤</span><strong id="actualDrawdown"></strong><small>不是盘中最大回撤</small></article>
+        <article><span>人民币子集样本波动</span><strong id="modelVolatility"></strong><small>共同观察间隔，不年化</small></article>
+        <article><span>子集95%历史尾部损失</span><strong id="modelCvar"></strong><small>不是未来最大亏损保证</small></article>
+      </div>
+      <p id="performanceNote" class="muted evaluation-note"></p><p id="modelRiskChange" class="evaluation-note"></p>
+      <details class="support-note"><summary>风险贡献、样本范围与评价工具</summary><p id="riskModelNote"></p><ol id="riskContributors"></ol><p id="engineStatus"></p><p id="backtestGate"></p></details>
+      <details class="support-note"><summary>需要补充的数据</summary><ul id="dataRequests"></ul></details>
+    </section>
     <section id="positionsSection" class="positions-panel" aria-labelledby="positionsTitle">
       <div class="section-title"><h2 id="positionsTitle">资产清单 <span id="count" class="heading-count"></span></h2><button id="resetFilters" class="text-button" type="button">恢复全部</button></div>
       <div class="filters"><div class="search-sort"><label class="search-box"><span class="sr-only">搜索资产</span><span class="search-glyph" aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索名称、代码或账户" autocomplete="off"></label><label><span class="sr-only">资产排序</span><select id="sort"><option value="amount-desc">金额 ↓</option><option value="amount-asc">金额 ↑</option><option value="profit-asc">持仓收益 ↑</option><option value="profit-desc">持仓收益 ↓</option><option value="name">名称</option></select></label></div><div class="selectors"><label><span class="sr-only">账户</span><select id="account"><option value="">全部账户</option></select></label><label><span class="sr-only">监督范围</span><select id="scope"><option value="">全部范围</option><option value="research">参与监督</option><option value="excluded">仅资产核算</option></select></label></div></div>
@@ -40,6 +55,7 @@
     <details class="issues-panel"><summary>数据不足与异常 <span id="issueCount"></span></summary><ul id="issues"></ul></details>
     <footer>不是正式投资建议。交易前核对赎回费、申购状态、限购、持有不足7天的份额、公告、成交/确认时间、可卖数量、停牌与自身风险承受能力。无充分证据不交易。</footer>
   </main>
+  <script src="./published-holdings.js"></script>
   <script src="./holdings-model.js"></script><script src="./holdings.js"></script>
 </body>
 </html>
