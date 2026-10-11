@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'none'; font-src 'none'; form-action 'none'; base-uri 'none'">
+  <title>我的持仓 · 私有查看器</title>
+  <link rel="stylesheet" href="./holdings.css">
+</head>
+<body>
+  <section class="import-panel" aria-labelledby="importTitle">
+    <p class="kicker">PRIVATE / PORTFOLIO</p>
+    <h1 id="importTitle">你的持仓，留在你这里。</h1>
+    <p>选择本地每日监督生成的 <code>my_holdings.json</code>。文件只在本页面内存中读取，不上传、不自动保存。刷新或清除后需重新导入。</p>
+    <div class="import-controls"><label class="file-button">导入监督文件<input id="fileInput" type="file" accept=".json,application/json"></label><button id="clear" type="button">清除本页数据</button></div>
+    <p id="message" role="status" aria-live="polite">尚未导入。网站访问密码不是资产数据的保护措施；请勿把私有文件放进公开仓库。</p>
+  </section>
+  <main id="report" hidden>
+    <div class="report-meta" id="meta"></div>
+    <section class="metrics" aria-label="账户与风险预算">
+      <article><span>已确认基准资产</span><strong id="baseline"></strong><small>含现金，不是实时自动估值</small></article>
+      <article><span>允许亏损边界</span><strong id="budget"></strong><small>不是保本或止损保证</small></article>
+      <article><span>基准后净亏损</span><strong id="loss"></strong><small>已扣除累计外部入出金</small></article>
+      <article><span>剩余亏损预算</span><strong id="remaining"></strong><small id="lossStatus"></small></article>
+    </section>
+    <section class="risk-panel"><p class="kicker">01 / DAILY PRIORITIES</p><h2>今天先看这些</h2><p id="riskChange"></p><p id="scenario"></p><p id="dataNote" class="muted"></p><div id="priorities"></div><p id="plan" class="plan"></p></section>
+    <section class="positions-panel"><div class="section-title"><div><p class="kicker">02 / FULL HOLDINGS</p><h2>完整资产清单</h2></div><span id="count"></span></div>
+      <div class="filters"><label>搜索<input id="search" type="search" placeholder="名称或代码"></label><label>账户<select id="account"><option value="">全部账户</option></select></label><label>范围<select id="scope"><option value="">全部资产</option><option value="research">参与监督</option><option value="excluded">仅资产核算</option></select></label></div>
+      <div class="table-scroll"><table><thead><tr><th>资产 / 代码</th><th>账户</th><th>基准金额 / 占比</th><th>持仓收益</th><th>建议 / 数据日期</th></tr></thead><tbody id="positions"></tbody></table></div>
+      <p id="empty" hidden>没有匹配的资产。</p><p class="muted">同代码在不同账户保留独立记录，风险判断合并计算。历史持仓收益不是基准后的净亏损；累计收益不混入持仓收益。金额不会随网页行情自动变化。</p>
+    </section>
+    <details><summary>数据不足与异常</summary><ul id="issues"></ul></details>
+    <footer>不是正式投资建议。交易前核对赎回费、申购状态、限购、持有不足7天的份额、公告、成交/确认时间、可卖数量、停牌与自身风险承受能力。无充分证据不交易。</footer>
+  </main>
+  <script src="./holdings-model.js"></script><script src="./holdings.js"></script>
+</body>
+</html>

@@ -1748,7 +1748,7 @@ function renderMine(){
 /* ================= 交互 ================= */
 function setView(v){
   curView=v;
-  ['home','etf','mkt','mine'].forEach(function(x){
+  ['home','etf','mkt','holdings','mine'].forEach(function(x){
     document.getElementById('view-'+x).style.display = x===v?'block':'none';
   });
   document.querySelectorAll('nav .ni').forEach(function(n){
