@@ -4,32 +4,40 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'none'; font-src 'none'; form-action 'none'; base-uri 'none'">
-  <title>我的持仓 · 私有查看器</title>
+  <title>我的持仓 · QD个人观察台</title>
   <link rel="stylesheet" href="./holdings.css">
 </head>
 <body>
-  <section class="import-panel" aria-labelledby="importTitle">
-    <p class="kicker">PRIVATE / PORTFOLIO</p>
-    <h1 id="importTitle">你的持仓，留在你这里。</h1>
-    <p>选择本地每日监督生成的 <code>my_holdings.json</code>。文件只在本页面内存中读取，不上传、不自动保存。刷新或清除后需重新导入。</p>
-    <div class="import-controls"><label class="file-button">导入监督文件<input id="fileInput" type="file" accept=".json,application/json"></label><button id="clear" type="button">清除本页数据</button></div>
-    <p id="message" role="status" aria-live="polite">尚未导入。网站访问密码不是资产数据的保护措施；请勿把私有文件放进公开仓库。</p>
+  <h1 class="sr-only">我的持仓：私有每日监督</h1>
+  <header class="import-panel">
+    <div class="import-heading"><div><span class="section-index">PRIVATE / PORTFOLIO</span><h2>持仓监督</h2></div><span class="privacy-tag">仅当前页面可见</span></div>
+    <div class="import-controls"><label class="file-button">导入监督文件<input id="fileInput" type="file" accept=".json,application/json" aria-label="导入监督文件"></label><button id="mask" type="button" aria-pressed="false" disabled>隐藏金额</button><button id="clear" type="button" disabled>清除数据</button><details class="import-help"><summary>导入说明</summary><p>选择本地每日监督生成的 <code>my_holdings.json</code>。只在内存中读取，不上传、不自动保存，刷新或关闭后需重新导入。网站访问密码不是资产数据的保护措施，请勿把私有文件放进公开仓库。</p></details></div>
+    <p id="message" role="status" aria-live="polite">尚未导入 · 选择本地文件，查看账户分布、风险预算及逐项监督依据。</p>
+  </header>
+  <section id="welcome" class="welcome" aria-label="导入前说明">
+    <div class="welcome-mark" aria-hidden="true">QD<span>PRIVATE VIEW</span></div><div><h2>把账户放在一起，把风险分开看。</h2><p>汇总多账户资产，保留每笔持仓的来源。金额不会随公开行情自动变化。</p><ol><li><b>01</b>导入当天监督文件</li><li><b>02</b>查看最多三项优先复查</li><li><b>03</b>展开资产，核对数据与交易条件</li></ol></div>
   </section>
   <main id="report" hidden>
-    <div class="report-meta" id="meta"></div>
+    <div class="report-meta"><span id="meta"></span><span id="runStatus" class="status-tag"></span></div>
     <section class="metrics" aria-label="账户与风险预算">
-      <article><span>已确认基准资产</span><strong id="baseline"></strong><small>含现金，不是实时自动估值</small></article>
-      <article><span>允许亏损边界</span><strong id="budget"></strong><small>不是保本或止损保证</small></article>
-      <article><span>基准后净亏损</span><strong id="loss"></strong><small>已扣除累计外部入出金</small></article>
-      <article><span>剩余亏损预算</span><strong id="remaining"></strong><small id="lossStatus"></small></article>
+      <article><span>已确认基准资产 · 元</span><strong id="baseline"></strong><small>含现金，不是实时自动估值</small></article>
+      <article><span>允许亏损边界 · 元</span><strong id="budget"></strong><small>不是保本或止损保证</small></article>
+      <article><span>基准后净亏损 · 元</span><strong id="loss"></strong><small>已扣除累计外部入出金</small></article>
+      <article><span>剩余亏损预算 · 元</span><strong id="remaining" class="accent-number"></strong><small id="lossStatus"></small></article>
     </section>
-    <section class="risk-panel"><p class="kicker">01 / DAILY PRIORITIES</p><h2>今天先看这些</h2><p id="riskChange"></p><p id="scenario"></p><p id="dataNote" class="muted"></p><div id="priorities"></div><p id="plan" class="plan"></p></section>
-    <section class="positions-panel"><div class="section-title"><div><p class="kicker">02 / FULL HOLDINGS</p><h2>完整资产清单</h2></div><span id="count"></span></div>
-      <div class="filters"><label>搜索<input id="search" type="search" placeholder="名称或代码"></label><label>账户<select id="account"><option value="">全部账户</option></select></label><label>范围<select id="scope"><option value="">全部资产</option><option value="research">参与监督</option><option value="excluded">仅资产核算</option></select></label></div>
-      <div class="table-scroll"><table><thead><tr><th>资产 / 代码</th><th>账户</th><th>基准金额 / 占比</th><th>持仓收益</th><th>建议 / 数据日期</th></tr></thead><tbody id="positions"></tbody></table></div>
-      <p id="empty" hidden>没有匹配的资产。</p><p class="muted">同代码在不同账户保留独立记录，风险判断合并计算。历史持仓收益不是基准后的净亏损；累计收益不混入持仓收益。金额不会随网页行情自动变化。</p>
+    <div class="overview-grid">
+      <section class="risk-panel" aria-labelledby="riskTitle"><div class="section-title"><h2 id="riskTitle"><span class="section-index">01 /</span> 今日优先复查</h2><span class="muted">最多3项 · 每天1小时</span></div><p id="riskChange"></p><div class="budget-line"><span id="budgetLabel"></span><progress id="budgetMeter" max="100" value="0" aria-label="亏损预算使用比例"></progress></div><div id="priorities"></div><details class="support-note"><summary>压力情景与数据口径</summary><p id="scenario"></p><p id="dataNote"></p><p id="lossNote"></p></details><details class="support-note"><summary>我的每日复查安排</summary><p id="plan"></p></details></section>
+      <section class="allocation-panel" aria-labelledby="allocationTitle"><div class="section-title"><h2 id="allocationTitle">账户分布</h2><span class="muted">占全部基准资产</span></div><div id="allocation"></div><p class="muted">点击账户可筛选下方清单。上方风险预算始终为完整组合口径。</p><p id="cashNote" class="muted"></p></section>
+    </div>
+    <section id="positionsSection" class="positions-panel" aria-labelledby="positionsTitle">
+      <div class="section-title"><h2 id="positionsTitle">资产清单 <span id="count" class="heading-count"></span></h2><button id="resetFilters" class="text-button" type="button">恢复全部</button></div>
+      <div class="filters"><div class="search-sort"><label class="search-box"><span class="sr-only">搜索资产</span><span class="search-glyph" aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索名称、代码或账户" autocomplete="off"></label><label><span class="sr-only">资产排序</span><select id="sort"><option value="amount-desc">金额 ↓</option><option value="amount-asc">金额 ↑</option><option value="profit-asc">持仓收益 ↑</option><option value="profit-desc">持仓收益 ↓</option><option value="name">名称</option></select></label></div><div class="selectors"><label><span class="sr-only">账户</span><select id="account"><option value="">全部账户</option></select></label><label><span class="sr-only">监督范围</span><select id="scope"><option value="">全部范围</option><option value="research">参与监督</option><option value="excluded">仅资产核算</option></select></label></div></div>
+      <div id="types" class="type-filters" role="group" aria-label="资产类别"><button type="button" data-type="" aria-pressed="true">全部</button><button type="button" data-type="stock" aria-pressed="false">股票</button><button type="button" data-type="fund" aria-pressed="false">基金</button><button type="button" data-type="etf" aria-pressed="false">ETF</button><button type="button" data-type="gold" aria-pressed="false">黄金</button><button type="button" data-type="other" aria-pressed="false">其他核算</button></div>
+      <div class="list-head"><span>资产 / 账户 · 点击展开依据</span><span>基准金额 / 持仓收益</span></div><div id="positions" class="asset-list"></div>
+      <div id="empty" class="empty-result" hidden><p>没有匹配的资产</p><button id="emptyReset" type="button">清除筛选</button></div>
+      <p class="muted list-note" id="filterSummary" aria-live="polite"></p><p class="muted">同代码跨账户保留独立记录，风险判断合并计算。历史持仓收益不是基准后净亏损；累计收益单独标注。金额是截图基准，不随网页行情重估。</p>
     </section>
-    <details><summary>数据不足与异常</summary><ul id="issues"></ul></details>
+    <details class="issues-panel"><summary>数据不足与异常 <span id="issueCount"></span></summary><ul id="issues"></ul></details>
     <footer>不是正式投资建议。交易前核对赎回费、申购状态、限购、持有不足7天的份额、公告、成交/确认时间、可卖数量、停牌与自身风险承受能力。无充分证据不交易。</footer>
   </main>
   <script src="./holdings-model.js"></script><script src="./holdings.js"></script>

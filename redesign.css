@@ -1,4 +1,5 @@
 /* Direction 5: quiet, high-contrast data canvas. */
+.private-view-toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:11px;color:#777981;margin-bottom:6px}.private-view-toolbar a{color:#4935cf;text-decoration:none;padding:6px 0}.private-view-toolbar a:hover{text-decoration:underline}.private-view-note{font-size:10px;color:#777981;margin:0 0 14px}.private-view-frame{width:100%;height:820px;max-height:calc(100dvh - 180px);min-height:500px;border:0;display:block}@media(max-width:700px){.private-view-toolbar{font-size:10px;gap:8px}.private-view-toolbar a{min-height:42px;display:flex;align-items:center}.private-view-frame{max-height:none;height:calc(100dvh - 160px);min-height:500px}}
 :root{--bg:#fbfbfa;--surface:#fff;--ink:#19191e;--muted:#777981;--soft:#a0a1aa;--line:#e3e3e6;--accent:#4935cf;--accent-soft:#efedff;--rise:#c54858;--fall:#16876e;--amber:#a87326;--radius:0}
 body{background:var(--bg);font-family:"Microsoft YaHei UI","PingFang SC",Arial,sans-serif}
 button:focus-visible,input:focus-visible,summary:focus-visible{outline-color:#6656dd}
