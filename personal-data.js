@@ -1,5 +1,5 @@
 window.PERSONAL_DATA = {
-  "updatedAt": "2026-10-26T05:04:02.568950+08:00",
+  "updatedAt": "2026-10-26T13:05:19.772268+08:00",
   "funds": [
     {
       "code": "163415",
@@ -78,12 +78,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 4.446,
       "navDate": "2026-10-23",
       "ytd": -4.223826714801449,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "001410",
@@ -162,12 +162,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 5.482,
       "navDate": "2026-10-23",
       "ytd": 8.769864626250712,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "016858",
@@ -246,12 +246,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 2.7792,
       "navDate": "2026-10-23",
       "ytd": -6.458887280805092,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "013403",
@@ -261,7 +261,7 @@ window.PERSONAL_DATA = {
       "navDate": "2026-10-23",
       "ytd": -32.35861182519281,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "017646",
@@ -340,12 +340,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 0.5791,
       "navDate": "2026-10-23",
       "ytd": -22.247583243823854,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "014143",
@@ -424,12 +424,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-09-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 9.6167,
       "navDate": "2026-10-23",
       "ytd": 13.986511313665284,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "023298",
@@ -508,12 +508,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 1.3164,
       "navDate": "2026-10-23",
       "ytd": -2.927512720300862,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "003957",
@@ -523,81 +523,81 @@ window.PERSONAL_DATA = {
         {
           "code": "300308",
           "name": "中际旭创",
-          "weight": 4.97,
+          "weight": 3.72,
           "kind": "stock",
           "texch": "2"
         },
         {
           "code": "300750",
           "name": "宁德时代",
-          "weight": 3.67,
+          "weight": 3.02,
           "kind": "stock",
           "texch": "2"
         },
         {
           "code": "300502",
           "name": "新易盛",
-          "weight": 2.48,
+          "weight": 2.3,
           "kind": "stock",
           "texch": "2"
         },
         {
           "code": "600519",
           "name": "贵州茅台",
-          "weight": 2.06,
+          "weight": 2.02,
           "kind": "stock",
           "texch": "1"
+        },
+        {
+          "code": "603259",
+          "name": "药明康德",
+          "weight": 1.96,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
+          "code": "000333",
+          "name": "美的集团",
+          "weight": 1.63,
+          "kind": "stock",
+          "texch": "2"
         },
         {
           "code": "688256",
           "name": "寒武纪",
-          "weight": 1.72,
-          "kind": "stock",
-          "texch": "1"
-        },
-        {
-          "code": "601318",
-          "name": "中国平安",
-          "weight": 1.64,
-          "kind": "stock",
-          "texch": "1"
-        },
-        {
-          "code": "601899",
-          "name": "紫金矿业",
-          "weight": 1.61,
+          "weight": 1.52,
           "kind": "stock",
           "texch": "1"
         },
         {
           "code": "603986",
           "name": "兆易创新",
-          "weight": 1.49,
+          "weight": 1.29,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "002475",
-          "name": "立讯精密",
-          "weight": 1.44,
+          "code": "002384",
+          "name": "东山精密",
+          "weight": 1.28,
           "kind": "stock",
           "texch": "2"
         },
         {
-          "code": "002384",
-          "name": "东山精密",
-          "weight": 1.37,
+          "code": "688981",
+          "name": "中芯国际",
+          "weight": 1.26,
           "kind": "stock",
-          "texch": "2"
+          "texch": "1"
         }
       ],
-      "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "reportDate": "2026-09-30",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 1.8407,
       "navDate": "2026-10-23",
       "ytd": -8.568448241605397,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "008971",
@@ -676,12 +676,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2023-08-31",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 6.0481,
       "navDate": "2026-10-22",
       "ytd": 7.527512578448636,
       "ytdDate": "2026-10-22",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "008984",
@@ -760,12 +760,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 1.4772,
       "navDate": "2026-10-23",
       "ytd": 30.876229290334024,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "011370",
@@ -844,12 +844,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 2.5532,
       "navDate": "2026-10-23",
       "ytd": 33.37512406623831,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "008999",
@@ -988,12 +988,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 1.3389,
       "navDate": "2026-10-23",
       "ytd": 0.0074693755601984435,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "025499",
@@ -1003,81 +1003,81 @@ window.PERSONAL_DATA = {
         {
           "code": "603986",
           "name": "兆易创新",
-          "weight": 8.31,
+          "weight": 7.59,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
+          "code": "300223",
+          "name": "君正股份",
+          "weight": 7.56,
+          "kind": "stock",
+          "texch": "2"
+        },
+        {
+          "code": "688825",
+          "name": "长鑫科技",
+          "weight": 7.39,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
+          "code": "688766",
+          "name": "普冉股份",
+          "weight": 7.26,
           "kind": "stock",
           "texch": "1"
         },
         {
           "code": "300475",
           "name": "香农芯创",
-          "weight": 7.3,
+          "weight": 7.23,
           "kind": "stock",
           "texch": "2"
         },
         {
-          "code": "301308",
-          "name": "江波龙",
-          "weight": 6.9,
-          "kind": "stock",
-          "texch": "2"
-        },
-        {
-          "code": "300223",
-          "name": "君正股份",
-          "weight": 6.82,
+          "code": "001309",
+          "name": "德明利",
+          "weight": 6.43,
           "kind": "stock",
           "texch": "2"
         },
         {
           "code": "688525",
           "name": "佰维存储",
-          "weight": 6.8,
+          "weight": 5.49,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "001309",
-          "name": "德明利",
-          "weight": 6.79,
+          "code": "301308",
+          "name": "江波龙",
+          "weight": 5.28,
           "kind": "stock",
           "texch": "2"
         },
         {
-          "code": "688766",
-          "name": "普冉股份",
-          "weight": 6.32,
-          "kind": "stock",
-          "texch": "1"
-        },
-        {
-          "code": "688008",
-          "name": "澜起科技",
-          "weight": 4.88,
-          "kind": "stock",
-          "texch": "1"
-        },
-        {
           "code": "688110",
           "name": "东芯股份",
-          "weight": 4.27,
+          "weight": 4.88,
           "kind": "stock",
           "texch": "1"
         },
         {
           "code": "688123",
           "name": "聚辰股份",
-          "weight": 3.95,
+          "weight": 4.85,
           "kind": "stock",
           "texch": "1"
         }
       ],
-      "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "reportDate": "2026-09-30",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 1.2435,
       "navDate": "2026-10-23",
       "ytd": 16.476208317721984,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "001162",
@@ -1156,12 +1156,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 2.09,
       "navDate": "2026-10-23",
       "ytd": 15.917914586799764,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "002065",
@@ -1300,12 +1300,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 1.265,
       "navDate": "2026-10-23",
       "ytd": 1.1387900355871894,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "004388",
@@ -1313,49 +1313,43 @@ window.PERSONAL_DATA = {
       "ftype": "债券型-长债",
       "holdings": [
         {
-          "code": "230413",
-          "name": "23农发13",
-          "weight": 2.96,
+          "code": "260411",
+          "name": "26农发11",
+          "weight": 2.31,
           "kind": "bond"
         },
         {
-          "code": "112605151",
-          "name": "26建设银行CD151",
-          "weight": 2.1,
+          "code": "112603180",
+          "name": "26农业银行CD180",
+          "weight": 1.98,
           "kind": "bond"
         },
         {
           "code": "112603148",
           "name": "26农业银行CD148",
-          "weight": 2.09,
-          "kind": "bond"
-        },
-        {
-          "code": "112606129",
-          "name": "26交通银行CD129",
-          "weight": 2.09,
+          "weight": 1.7,
           "kind": "bond"
         },
         {
           "code": "112602113",
           "name": "26工商银行CD113",
-          "weight": 2.09,
+          "weight": 1.7,
           "kind": "bond"
         },
         {
-          "code": "242580022",
-          "name": "25民生银行永续债01",
-          "weight": 1.94,
+          "code": "112606129",
+          "name": "26交通银行CD129",
+          "weight": 1.7,
           "kind": "bond"
         }
       ],
-      "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "reportDate": "2026-09-30",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 1.3269,
       "navDate": "2026-10-23",
       "ytd": 2.9261206419479713,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "018043",
@@ -1434,12 +1428,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 1.9821,
       "navDate": "2026-10-22",
       "ytd": 8.978447327908512,
       "ytdDate": "2026-10-22",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "019441",
@@ -1518,12 +1512,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 1.6456,
       "navDate": "2026-10-22",
       "ytd": 9.597069597069584,
       "ytdDate": "2026-10-22",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "040046",
@@ -1602,12 +1596,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2022-12-08",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 7.9641,
       "navDate": "2026-10-22",
       "ytd": 8.705622210392704,
       "ytdDate": "2026-10-22",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "018966",
@@ -1617,7 +1611,7 @@ window.PERSONAL_DATA = {
       "navDate": "2026-10-22",
       "ytd": 6.89188274321304,
       "ytdDate": "2026-10-22",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     },
     {
       "code": "539001",
@@ -1627,62 +1621,55 @@ window.PERSONAL_DATA = {
         {
           "code": "NVDA",
           "name": "英伟达",
-          "weight": 6.96,
+          "weight": 7.7,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "AAPL",
           "name": "苹果",
-          "weight": 6.11,
-          "kind": "stock",
-          "texch": "7"
-        },
-        {
-          "code": "MU",
-          "name": "美光科技",
-          "weight": 5.17,
+          "weight": 6.81,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "MSFT",
           "name": "微软",
-          "weight": 3.99,
+          "weight": 5.31,
+          "kind": "stock",
+          "texch": "7"
+        },
+        {
+          "code": "MU",
+          "name": "美光科技",
+          "weight": 4.62,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "AMD",
           "name": "超威半导体",
-          "weight": 3.76,
+          "weight": 3.84,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "AMZN",
           "name": "亚马逊",
-          "weight": 3.69,
+          "weight": 3.73,
           "kind": "stock",
           "texch": "7"
         },
         {
-          "code": "TSLA",
-          "name": "特斯拉",
-          "weight": 3.02,
+          "code": "META",
+          "name": "Meta Platforms Inc-A",
+          "weight": 2.99,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "GOOGL",
           "name": "谷歌-A",
-          "weight": 2.99,
-          "kind": "stock",
-          "texch": "7"
-        },
-        {
-          "code": "INTC",
-          "name": "英特尔",
           "weight": 2.79,
           "kind": "stock",
           "texch": "7"
@@ -1690,18 +1677,25 @@ window.PERSONAL_DATA = {
         {
           "code": "GOOG",
           "name": "谷歌-C",
-          "weight": 2.77,
+          "weight": 2.59,
+          "kind": "stock",
+          "texch": "7"
+        },
+        {
+          "code": "TSLA",
+          "name": "特斯拉",
+          "weight": 2.47,
           "kind": "stock",
           "texch": "7"
         }
       ],
-      "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-26T05:04:02.568950+08:00",
+      "reportDate": "2026-09-30",
+      "holdingsCheckedAt": "2026-10-26T13:05:19.772268+08:00",
       "nav": 3.363,
       "navDate": "2026-10-22",
       "ytd": 8.274307791371548,
       "ytdDate": "2026-10-22",
-      "checkedAt": "2026-10-26T05:04:02.568950+08:00"
+      "checkedAt": "2026-10-26T13:05:19.772268+08:00"
     }
   ]
 };
