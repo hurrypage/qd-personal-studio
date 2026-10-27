@@ -1,5 +1,5 @@
 window.PERSONAL_DATA = {
-  "updatedAt": "2026-10-27T06:47:49.365124+08:00",
+  "updatedAt": "2026-10-27T13:19:30.171708+08:00",
   "funds": [
     {
       "code": "163415",
@@ -78,12 +78,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-09-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 4.352,
       "navDate": "2026-10-26",
       "ytd": -5.920577617328526,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "001410",
@@ -91,83 +91,83 @@ window.PERSONAL_DATA = {
       "ftype": "股票型",
       "holdings": [
         {
-          "code": "600460",
-          "name": "士兰微",
-          "weight": 2.54,
-          "kind": "stock",
-          "texch": "1"
-        },
-        {
-          "code": "300671",
-          "name": "富满微",
-          "weight": 2.25,
+          "code": "300623",
+          "name": "捷捷微电",
+          "weight": 2.48,
           "kind": "stock",
           "texch": "2"
         },
         {
-          "code": "688120",
-          "name": "华海清科",
-          "weight": 2.14,
-          "kind": "stock",
-          "texch": "1"
-        },
-        {
-          "code": "688082",
-          "name": "盛美上海",
-          "weight": 2.04,
-          "kind": "stock",
-          "texch": "1"
-        },
-        {
-          "code": "603986",
-          "name": "兆易创新",
-          "weight": 1.96,
+          "code": "688536",
+          "name": "思瑞浦",
+          "weight": 2.29,
           "kind": "stock",
           "texch": "1"
         },
         {
           "code": "688469",
           "name": "芯联集成",
-          "weight": 1.86,
+          "weight": 2.06,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "688535",
-          "name": "华海诚科",
-          "weight": 1.85,
+          "code": "300671",
+          "name": "富满微",
+          "weight": 2.05,
+          "kind": "stock",
+          "texch": "2"
+        },
+        {
+          "code": "688249",
+          "name": "晶合集成",
+          "weight": 1.96,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "688362",
-          "name": "甬矽电子",
-          "weight": 1.78,
+          "code": "688052",
+          "name": "纳芯微",
+          "weight": 1.93,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "688536",
-          "name": "思瑞浦",
+          "code": "603920",
+          "name": "世运电路",
+          "weight": 1.89,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
+          "code": "002916",
+          "name": "深南电路",
+          "weight": 1.83,
+          "kind": "stock",
+          "texch": "2"
+        },
+        {
+          "code": "300661",
+          "name": "圣邦股份",
           "weight": 1.77,
           "kind": "stock",
-          "texch": "1"
+          "texch": "2"
         },
         {
-          "code": "600378",
-          "name": "昊华科技",
-          "weight": 1.76,
+          "code": "605358",
+          "name": "立昂微",
+          "weight": 1.7,
           "kind": "stock",
           "texch": "1"
         }
       ],
-      "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "reportDate": "2026-09-30",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 5.33,
       "navDate": "2026-10-26",
       "ytd": 5.787718265646458,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "016858",
@@ -175,83 +175,83 @@ window.PERSONAL_DATA = {
       "ftype": "股票型",
       "holdings": [
         {
-          "code": "000725",
-          "name": "京东方A",
-          "weight": 1.78,
-          "kind": "stock",
-          "texch": "2"
-        },
-        {
-          "code": "603259",
-          "name": "药明康德",
-          "weight": 1.57,
+          "code": "688498",
+          "name": "源杰科技",
+          "weight": 2.2,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "002407",
-          "name": "多氟多",
-          "weight": 1.54,
+          "code": "688012",
+          "name": "中微公司",
+          "weight": 1.15,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
+          "code": "300136",
+          "name": "信维通信",
+          "weight": 1.1,
           "kind": "stock",
           "texch": "2"
         },
         {
-          "code": "300014",
-          "name": "亿纬锂能",
-          "weight": 1.4,
+          "code": "603228",
+          "name": "景旺电子",
+          "weight": 1.0,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
+          "code": "000977",
+          "name": "浪潮信息",
+          "weight": 0.9,
           "kind": "stock",
           "texch": "2"
+        },
+        {
+          "code": "300757",
+          "name": "罗博特科",
+          "weight": 0.84,
+          "kind": "stock",
+          "texch": "2"
+        },
+        {
+          "code": "300408",
+          "name": "三环集团",
+          "weight": 0.74,
+          "kind": "stock",
+          "texch": "2"
+        },
+        {
+          "code": "600150",
+          "name": "中国船舶",
+          "weight": 0.74,
+          "kind": "stock",
+          "texch": "1"
         },
         {
           "code": "600584",
           "name": "长电科技",
-          "weight": 1.28,
+          "weight": 0.58,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "301396",
-          "name": "宏景科技",
-          "weight": 1.24,
-          "kind": "stock",
-          "texch": "2"
-        },
-        {
-          "code": "000630",
-          "name": "铜陵有色",
-          "weight": 1.18,
-          "kind": "stock",
-          "texch": "2"
-        },
-        {
-          "code": "002436",
-          "name": "兴森科技",
-          "weight": 0.84,
-          "kind": "stock",
-          "texch": "2"
-        },
-        {
-          "code": "600549",
-          "name": "厦门钨业",
-          "weight": 0.84,
-          "kind": "stock",
-          "texch": "1"
-        },
-        {
-          "code": "002600",
-          "name": "领益智造",
-          "weight": 0.8,
+          "code": "000725",
+          "name": "京东方A",
+          "weight": 0.58,
           "kind": "stock",
           "texch": "2"
         }
       ],
-      "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "reportDate": "2026-09-30",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 2.7241,
       "navDate": "2026-10-26",
       "ytd": -8.313419272323374,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "013403",
@@ -261,7 +261,7 @@ window.PERSONAL_DATA = {
       "navDate": "2026-10-26",
       "ytd": -32.637103684661525,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "017646",
@@ -277,12 +277,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-09-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 0.5757,
       "navDate": "2026-10-26",
       "ytd": -22.70408163265306,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "014143",
@@ -361,12 +361,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-09-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 9.4757,
       "navDate": "2026-10-26",
       "ytd": 12.315241741439188,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "023298",
@@ -376,81 +376,81 @@ window.PERSONAL_DATA = {
         {
           "code": "300308",
           "name": "中际旭创",
-          "weight": 4.28,
+          "weight": 3.25,
           "kind": "stock",
           "texch": "2"
         },
         {
           "code": "300750",
           "name": "宁德时代",
-          "weight": 3.21,
+          "weight": 2.82,
           "kind": "stock",
           "texch": "2"
-        },
-        {
-          "code": "300502",
-          "name": "新易盛",
-          "weight": 1.86,
-          "kind": "stock",
-          "texch": "2"
-        },
-        {
-          "code": "688256",
-          "name": "寒武纪",
-          "weight": 1.75,
-          "kind": "stock",
-          "texch": "1"
         },
         {
           "code": "601318",
           "name": "中国平安",
-          "weight": 1.62,
+          "weight": 2.16,
           "kind": "stock",
           "texch": "1"
         },
         {
+          "code": "300502",
+          "name": "新易盛",
+          "weight": 1.98,
+          "kind": "stock",
+          "texch": "2"
+        },
+        {
           "code": "600519",
           "name": "贵州茅台",
-          "weight": 1.51,
+          "weight": 1.98,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
+          "code": "600036",
+          "name": "招商银行",
+          "weight": 1.97,
           "kind": "stock",
           "texch": "1"
         },
         {
           "code": "601899",
           "name": "紫金矿业",
-          "weight": 1.45,
+          "weight": 1.9,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "000333",
-          "name": "美的集团",
-          "weight": 1.31,
-          "kind": "stock",
-          "texch": "2"
-        },
-        {
-          "code": "688041",
-          "name": "海光信息",
-          "weight": 1.31,
+          "code": "603259",
+          "name": "药明康德",
+          "weight": 1.66,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "002475",
-          "name": "立讯精密",
-          "weight": 1.31,
+          "code": "688256",
+          "name": "寒武纪",
+          "weight": 1.32,
           "kind": "stock",
-          "texch": "2"
+          "texch": "1"
+        },
+        {
+          "code": "601398",
+          "name": "工商银行",
+          "weight": 1.17,
+          "kind": "stock",
+          "texch": "1"
         }
       ],
-      "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "reportDate": "2026-09-30",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 1.3078,
       "navDate": "2026-10-26",
       "ytd": -3.5616842415751027,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "003957",
@@ -529,12 +529,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-09-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 1.8264,
       "navDate": "2026-10-26",
       "ytd": -9.278760182793555,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "008971",
@@ -613,12 +613,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2023-08-31",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 6.0453,
       "navDate": "2026-10-23",
       "ytd": 7.477732145714433,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "008984",
@@ -626,83 +626,83 @@ window.PERSONAL_DATA = {
       "ftype": "混合型-偏股",
       "holdings": [
         {
-          "code": "300308",
-          "name": "中际旭创",
-          "weight": 9.53,
+          "code": "300570",
+          "name": "太辰光",
+          "weight": 9.75,
           "kind": "stock",
           "texch": "2"
         },
         {
           "code": "300502",
           "name": "新易盛",
-          "weight": 9.5,
+          "weight": 9.13,
           "kind": "stock",
           "texch": "2"
         },
         {
-          "code": "300570",
-          "name": "太辰光",
-          "weight": 9.47,
+          "code": "300308",
+          "name": "中际旭创",
+          "weight": 9.13,
           "kind": "stock",
           "texch": "2"
         },
         {
-          "code": "688800",
-          "name": "瑞可达",
-          "weight": 8.24,
+          "code": "603236",
+          "name": "移远通信",
+          "weight": 9.02,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "300548",
-          "name": "长芯博创",
-          "weight": 8.23,
+          "code": "301183",
+          "name": "东田微",
+          "weight": 8.68,
           "kind": "stock",
           "texch": "2"
-        },
-        {
-          "code": "688807",
-          "name": "优迅股份",
-          "weight": 8.12,
-          "kind": "stock",
-          "texch": "1"
         },
         {
           "code": "688313",
           "name": "仕佳光子",
-          "weight": 8.09,
+          "weight": 8.11,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
+          "code": "688800",
+          "name": "瑞可达",
+          "weight": 8.05,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
+          "code": "688001",
+          "name": "华兴源创",
+          "weight": 7.88,
           "kind": "stock",
           "texch": "1"
         },
         {
           "code": "688498",
           "name": "源杰科技",
-          "weight": 7.66,
+          "weight": 6.29,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "300394",
-          "name": "天孚通信",
-          "weight": 7.25,
-          "kind": "stock",
-          "texch": "2"
-        },
-        {
           "code": "06869",
           "name": "长飞光纤光缆",
-          "weight": 6.15,
+          "weight": 6.1,
           "kind": "stock",
           "texch": "5"
         }
       ],
-      "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "reportDate": "2026-09-30",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 1.4291,
       "navDate": "2026-10-26",
       "ytd": 26.614689465757067,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "011370",
@@ -712,81 +712,81 @@ window.PERSONAL_DATA = {
         {
           "code": "300308",
           "name": "中际旭创",
-          "weight": 7.13,
+          "weight": 6.79,
           "kind": "stock",
           "texch": "2"
         },
         {
           "code": "300502",
           "name": "新易盛",
-          "weight": 6.64,
-          "kind": "stock",
-          "texch": "2"
-        },
-        {
-          "code": "000636",
-          "name": "风华高科",
-          "weight": 5.95,
-          "kind": "stock",
-          "texch": "2"
-        },
-        {
-          "code": "300408",
-          "name": "三环集团",
-          "weight": 5.6,
+          "weight": 6.77,
           "kind": "stock",
           "texch": "2"
         },
         {
           "code": "688498",
           "name": "源杰科技",
-          "weight": 3.84,
+          "weight": 6.52,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "605376",
-          "name": "博迁新材",
-          "weight": 3.6,
-          "kind": "stock",
-          "texch": "1"
-        },
-        {
-          "code": "600105",
-          "name": "永鼎股份",
-          "weight": 3.6,
-          "kind": "stock",
-          "texch": "1"
-        },
-        {
-          "code": "688048",
-          "name": "长光华芯",
-          "weight": 3.35,
-          "kind": "stock",
-          "texch": "1"
-        },
-        {
-          "code": "002428",
-          "name": "云南锗业",
-          "weight": 2.88,
+          "code": "300408",
+          "name": "三环集团",
+          "weight": 6.17,
           "kind": "stock",
           "texch": "2"
         },
         {
           "code": "600183",
           "name": "生益科技",
+          "weight": 6.02,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
+          "code": "000636",
+          "name": "风华高科",
+          "weight": 5.85,
+          "kind": "stock",
+          "texch": "2"
+        },
+        {
+          "code": "002384",
+          "name": "东山精密",
+          "weight": 4.16,
+          "kind": "stock",
+          "texch": "2"
+        },
+        {
+          "code": "688048",
+          "name": "长光华芯",
+          "weight": 4.02,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
+          "code": "688313",
+          "name": "仕佳光子",
+          "weight": 3.66,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
+          "code": "603256",
+          "name": "宏和科技",
           "weight": 2.68,
           "kind": "stock",
           "texch": "1"
         }
       ],
-      "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "reportDate": "2026-09-30",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 2.4003,
       "navDate": "2026-10-26",
       "ytd": 25.387870239774337,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "008999",
@@ -794,109 +794,109 @@ window.PERSONAL_DATA = {
       "ftype": "债券型-混合二级",
       "holdings": [
         {
-          "code": "002371",
-          "name": "北方华创",
-          "weight": 1.06,
+          "code": "601898",
+          "name": "中煤能源",
+          "weight": 1.07,
           "kind": "stock",
-          "texch": "2"
+          "texch": "1"
+        },
+        {
+          "code": "688825",
+          "name": "长鑫科技",
+          "weight": 0.76,
+          "kind": "stock",
+          "texch": "1"
         },
         {
           "code": "688361",
           "name": "中科飞测",
-          "weight": 1.02,
+          "weight": 0.65,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
+          "code": "600938",
+          "name": "中国海油",
+          "weight": 0.64,
           "kind": "stock",
           "texch": "1"
         },
         {
           "code": "688347",
           "name": "华虹宏力",
-          "weight": 0.85,
+          "weight": 0.58,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "601899",
-          "name": "紫金矿业",
-          "weight": 0.77,
+          "code": "600893",
+          "name": "航发动力",
+          "weight": 0.57,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "688981",
-          "name": "中芯国际",
-          "weight": 0.65,
-          "kind": "stock",
-          "texch": "1"
-        },
-        {
-          "code": "688041",
-          "name": "海光信息",
-          "weight": 0.61,
-          "kind": "stock",
-          "texch": "1"
-        },
-        {
-          "code": "300750",
-          "name": "宁德时代",
-          "weight": 0.6,
+          "code": "002371",
+          "name": "北方华创",
+          "weight": 0.57,
           "kind": "stock",
           "texch": "2"
         },
         {
-          "code": "601636",
-          "name": "旗滨集团",
-          "weight": 0.59,
+          "code": "001979",
+          "name": "招商蛇口",
+          "weight": 0.56,
           "kind": "stock",
-          "texch": "1"
+          "texch": "2"
         },
         {
-          "code": "002179",
-          "name": "中航光电",
+          "code": "601225",
+          "name": "陕西煤业",
           "weight": 0.55,
           "kind": "stock",
-          "texch": "2"
+          "texch": "1"
         },
         {
           "code": "688002",
           "name": "睿创微纳",
-          "weight": 0.52,
+          "weight": 0.54,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "2600002",
-          "name": "26超长特别国债02",
-          "weight": 4.05,
-          "kind": "bond"
-        },
-        {
-          "code": "260205",
-          "name": "26国开05",
-          "weight": 2.88,
-          "kind": "bond"
-        },
-        {
           "code": "312410008",
           "name": "24交行TLAC非资本债01(BC)",
-          "weight": 2.81,
+          "weight": 3.14,
           "kind": "bond"
         },
         {
-          "code": "2500002",
-          "name": "25超长特别国债02",
-          "weight": 2.78,
+          "code": "2600001",
+          "name": "26超长特别国债01",
+          "weight": 3.07,
           "kind": "bond"
         },
         {
           "code": "312410005",
           "name": "24农行TLAC非资本债01A(BC)",
-          "weight": 2.59,
+          "weight": 2.87,
+          "kind": "bond"
+        },
+        {
+          "code": "2600006",
+          "name": "26超长特别国债06",
+          "weight": 2.81,
+          "kind": "bond"
+        },
+        {
+          "code": "220208",
+          "name": "22国开08",
+          "weight": 2.67,
           "kind": "bond"
         },
         {
           "code": "113052",
           "name": "兴业转债",
-          "weight": 1.53,
+          "weight": 1.48,
           "kind": "bond"
         },
         {
@@ -908,29 +908,29 @@ window.PERSONAL_DATA = {
         {
           "code": "110085",
           "name": "通22转债",
-          "weight": 0.31,
+          "weight": 0.3,
           "kind": "bond"
         },
         {
-          "code": "113059",
-          "name": "福莱转债",
-          "weight": 0.14,
+          "code": "127045",
+          "name": "牧原转债",
+          "weight": 0.24,
           "kind": "bond"
         },
         {
-          "code": "127030",
-          "name": "盛虹转债",
-          "weight": 0.14,
+          "code": "123107",
+          "name": "温氏转债",
+          "weight": 0.16,
           "kind": "bond"
         }
       ],
-      "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "reportDate": "2026-09-30",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 1.338,
       "navDate": "2026-10-26",
       "ytd": -0.059755004481620855,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "025499",
@@ -1009,12 +1009,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-09-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 1.1821,
       "navDate": "2026-10-26",
       "ytd": 10.72499063319594,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "001162",
@@ -1024,81 +1024,81 @@ window.PERSONAL_DATA = {
         {
           "code": "600900",
           "name": "长江电力",
-          "weight": 8.53,
+          "weight": 8.28,
           "kind": "stock",
           "texch": "1"
         },
         {
           "code": "600674",
           "name": "川投能源",
-          "weight": 7.68,
+          "weight": 7.85,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "688012",
-          "name": "中微公司",
-          "weight": 7.64,
+          "code": "600886",
+          "name": "国投电力",
+          "weight": 5.77,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "002371",
-          "name": "北方华创",
-          "weight": 6.37,
+          "code": "600919",
+          "name": "江苏银行",
+          "weight": 5.45,
           "kind": "stock",
-          "texch": "2"
+          "texch": "1"
+        },
+        {
+          "code": "600795",
+          "name": "国电电力",
+          "weight": 4.8,
+          "kind": "stock",
+          "texch": "1"
         },
         {
           "code": "601816",
           "name": "京沪高铁",
-          "weight": 5.5,
+          "weight": 4.62,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "300502",
-          "name": "新易盛",
-          "weight": 5.23,
+          "code": "601838",
+          "name": "成都银行",
+          "weight": 4.38,
           "kind": "stock",
-          "texch": "2"
+          "texch": "1"
         },
         {
-          "code": "601918",
-          "name": "新集能源",
-          "weight": 5.17,
+          "code": "600489",
+          "name": "中金黄金",
+          "weight": 4.15,
           "kind": "stock",
           "texch": "1"
         },
         {
           "code": "600941",
           "name": "中国移动",
-          "weight": 5.05,
+          "weight": 4.09,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "300308",
-          "name": "中际旭创",
-          "weight": 4.62,
-          "kind": "stock",
-          "texch": "2"
-        },
-        {
-          "code": "688256",
-          "name": "寒武纪",
-          "weight": 4.23,
+          "code": "601918",
+          "name": "新集能源",
+          "weight": 3.66,
           "kind": "stock",
           "texch": "1"
         }
       ],
-      "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "reportDate": "2026-09-30",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 2.097,
       "navDate": "2026-10-26",
       "ytd": 16.306156405990023,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "002065",
@@ -1106,143 +1106,143 @@ window.PERSONAL_DATA = {
       "ftype": "债券型-混合二级",
       "holdings": [
         {
+          "code": "603993",
+          "name": "洛阳钼业",
+          "weight": 1.73,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
           "code": "601899",
           "name": "紫金矿业",
-          "weight": 3.57,
+          "weight": 1.43,
           "kind": "stock",
           "texch": "1"
         },
         {
           "code": "601898",
           "name": "中煤能源",
-          "weight": 1.09,
-          "kind": "stock",
-          "texch": "1"
-        },
-        {
-          "code": "600690",
-          "name": "海尔智家",
           "weight": 1.03,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "002128",
-          "name": "电投能源",
-          "weight": 0.8,
-          "kind": "stock",
-          "texch": "2"
-        },
-        {
-          "code": "600988",
-          "name": "赤峰黄金",
-          "weight": 0.65,
+          "code": "600499",
+          "name": "科达制造",
+          "weight": 0.61,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "603993",
-          "name": "洛阳钼业",
+          "code": "002493",
+          "name": "荣盛石化",
           "weight": 0.57,
           "kind": "stock",
-          "texch": "1"
+          "texch": "2"
         },
         {
-          "code": "601857",
-          "name": "中国石油",
-          "weight": 0.54,
+          "code": "600188",
+          "name": "兖矿能源",
+          "weight": 0.52,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "600595",
-          "name": "中孚实业",
-          "weight": 0.49,
+          "code": "603162",
+          "name": "海通发展",
+          "weight": 0.48,
           "kind": "stock",
           "texch": "1"
         },
         {
-          "code": "002532",
-          "name": "天山铝业",
-          "weight": 0.47,
+          "code": "601666",
+          "name": "平煤股份",
+          "weight": 0.43,
+          "kind": "stock",
+          "texch": "1"
+        },
+        {
+          "code": "000338",
+          "name": "潍柴动力",
+          "weight": 0.41,
           "kind": "stock",
           "texch": "2"
         },
         {
-          "code": "600938",
-          "name": "中国海油",
-          "weight": 0.47,
+          "code": "002027",
+          "name": "分众传媒",
+          "weight": 0.4,
           "kind": "stock",
-          "texch": "1"
+          "texch": "2"
         },
         {
           "code": "250220",
           "name": "25国开20",
-          "weight": 4.42,
+          "weight": 2.98,
           "kind": "bond"
         },
         {
           "code": "2500002",
           "name": "25超长特别国债02",
-          "weight": 4.23,
+          "weight": 2.88,
           "kind": "bond"
         },
         {
-          "code": "250431",
-          "name": "25农发31",
-          "weight": 2.47,
+          "code": "09260401",
+          "name": "26农发清发01",
+          "weight": 2.04,
           "kind": "bond"
         },
         {
           "code": "092200008",
           "name": "22农行二级资本债02A",
-          "weight": 1.99,
+          "weight": 1.85,
           "kind": "bond"
         },
         {
-          "code": "312410003",
-          "name": "24建行TLAC非资本债01A",
-          "weight": 1.95,
+          "code": "260002",
+          "name": "26附息国债02",
+          "weight": 1.66,
           "kind": "bond"
         },
         {
           "code": "113052",
           "name": "兴业转债",
-          "weight": 0.43,
+          "weight": 0.49,
           "kind": "bond"
         },
         {
-          "code": "127070",
-          "name": "大中转债",
-          "weight": 0.29,
+          "code": "113042",
+          "name": "上银转债",
+          "weight": 0.34,
           "kind": "bond"
         },
         {
-          "code": "128134",
-          "name": "鸿路转债",
-          "weight": 0.28,
+          "code": "110099",
+          "name": "福能转债",
+          "weight": 0.15,
           "kind": "bond"
         },
         {
-          "code": "118030",
-          "name": "睿创转债",
-          "weight": 0.24,
+          "code": "118022",
+          "name": "锂科转债",
+          "weight": 0.08,
           "kind": "bond"
         },
         {
-          "code": "127084",
-          "name": "柳工转2",
-          "weight": 0.18,
+          "code": "113058",
+          "name": "友发转债",
+          "weight": 0.06,
           "kind": "bond"
         }
       ],
-      "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "reportDate": "2026-09-30",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 1.264,
       "navDate": "2026-10-26",
       "ytd": 1.0676156583629748,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "004388",
@@ -1281,12 +1281,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-09-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 1.3272,
       "navDate": "2026-10-26",
       "ytd": 2.9468732706142697,
       "ytdDate": "2026-10-26",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "018043",
@@ -1296,48 +1296,48 @@ window.PERSONAL_DATA = {
         {
           "code": "NVDA",
           "name": "英伟达",
-          "weight": 6.84,
+          "weight": 7.58,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "AAPL",
           "name": "苹果",
-          "weight": 6.0,
-          "kind": "stock",
-          "texch": "7"
-        },
-        {
-          "code": "MU",
-          "name": "美光科技",
-          "weight": 5.15,
+          "weight": 6.7,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "MSFT",
           "name": "微软",
-          "weight": 3.91,
+          "weight": 5.25,
+          "kind": "stock",
+          "texch": "7"
+        },
+        {
+          "code": "MU",
+          "name": "美光科技",
+          "weight": 4.58,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "AMD",
           "name": "超威半导体",
-          "weight": 3.74,
+          "weight": 3.8,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "AMZN",
           "name": "亚马逊",
-          "weight": 3.62,
+          "weight": 3.7,
           "kind": "stock",
           "texch": "7"
         },
         {
-          "code": "TSLA",
-          "name": "特斯拉",
+          "code": "META",
+          "name": "Meta Platforms Inc-A",
           "weight": 2.97,
           "kind": "stock",
           "texch": "7"
@@ -1345,32 +1345,32 @@ window.PERSONAL_DATA = {
         {
           "code": "GOOGL",
           "name": "谷歌-A",
-          "weight": 2.94,
-          "kind": "stock",
-          "texch": "7"
-        },
-        {
-          "code": "INTC",
-          "name": "英特尔",
-          "weight": 2.77,
+          "weight": 2.78,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "GOOG",
           "name": "谷歌-C",
-          "weight": 2.72,
+          "weight": 2.59,
+          "kind": "stock",
+          "texch": "7"
+        },
+        {
+          "code": "TSLA",
+          "name": "特斯拉",
+          "weight": 2.57,
           "kind": "stock",
           "texch": "7"
         }
       ],
-      "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "reportDate": "2026-09-30",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 1.9815,
       "navDate": "2026-10-23",
       "ytd": 8.945458544095008,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "019441",
@@ -1380,48 +1380,48 @@ window.PERSONAL_DATA = {
         {
           "code": "NVDA",
           "name": "英伟达",
-          "weight": 7.16,
+          "weight": 7.9,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "AAPL",
           "name": "苹果",
-          "weight": 6.28,
-          "kind": "stock",
-          "texch": "7"
-        },
-        {
-          "code": "MU",
-          "name": "美光科技",
-          "weight": 5.31,
+          "weight": 6.98,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "MSFT",
           "name": "微软",
-          "weight": 4.09,
+          "weight": 5.47,
+          "kind": "stock",
+          "texch": "7"
+        },
+        {
+          "code": "MU",
+          "name": "美光科技",
+          "weight": 4.77,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "AMD",
           "name": "超威半导体",
-          "weight": 3.86,
+          "weight": 3.96,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "AMZN",
           "name": "亚马逊",
-          "weight": 3.79,
+          "weight": 3.86,
           "kind": "stock",
           "texch": "7"
         },
         {
-          "code": "TSLA",
-          "name": "特斯拉",
+          "code": "META",
+          "name": "Meta Platforms Inc-A",
           "weight": 3.1,
           "kind": "stock",
           "texch": "7"
@@ -1429,32 +1429,32 @@ window.PERSONAL_DATA = {
         {
           "code": "GOOGL",
           "name": "谷歌-A",
-          "weight": 3.08,
-          "kind": "stock",
-          "texch": "7"
-        },
-        {
-          "code": "INTC",
-          "name": "英特尔",
-          "weight": 2.86,
+          "weight": 2.9,
           "kind": "stock",
           "texch": "7"
         },
         {
           "code": "GOOG",
           "name": "谷歌-C",
-          "weight": 2.85,
+          "weight": 2.7,
+          "kind": "stock",
+          "texch": "7"
+        },
+        {
+          "code": "TSLA",
+          "name": "特斯拉",
+          "weight": 2.68,
           "kind": "stock",
           "texch": "7"
         }
       ],
-      "reportDate": "2026-06-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "reportDate": "2026-09-30",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 1.6451,
       "navDate": "2026-10-23",
       "ytd": 9.563769563769565,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "040046",
@@ -1533,12 +1533,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2022-12-08",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 7.9608,
       "navDate": "2026-10-23",
       "ytd": 8.660579009868563,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "018966",
@@ -1548,7 +1548,7 @@ window.PERSONAL_DATA = {
       "navDate": "2026-10-23",
       "ytd": 6.87157267618983,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     },
     {
       "code": "539001",
@@ -1627,12 +1627,12 @@ window.PERSONAL_DATA = {
         }
       ],
       "reportDate": "2026-09-30",
-      "holdingsCheckedAt": "2026-10-27T06:47:49.365124+08:00",
+      "holdingsCheckedAt": "2026-10-27T13:19:30.171708+08:00",
       "nav": 3.3614,
       "navDate": "2026-10-23",
       "ytd": 8.222794591113992,
       "ytdDate": "2026-10-23",
-      "checkedAt": "2026-10-27T06:47:49.365124+08:00"
+      "checkedAt": "2026-10-27T13:19:30.171708+08:00"
     }
   ]
 };
